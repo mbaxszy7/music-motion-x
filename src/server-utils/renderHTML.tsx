@@ -7,7 +7,6 @@ import routes from "../routes"
 import getReduxStore from "../createStore"
 import Html from "../Html"
 import App from "../App"
-import { DataProvider } from "../pages/About/data-about"
 
 const setInitialDataToStore = async (
   matchedRoutes: RouteMatch[] | null,
@@ -25,29 +24,6 @@ const setInitialDataToStore = async (
     )
 
   return store
-}
-
-function createServerData() {
-  let done = false
-  let promise: Promise<unknown> | null = null
-  return {
-    read() {
-      if (done) {
-        return
-      }
-      if (promise) {
-        throw promise
-      }
-      promise = new Promise((resolve) => {
-        setTimeout(() => {
-          done = true
-          promise = null
-          resolve("")
-        }, 2000)
-      })
-      throw promise
-    },
-  }
 }
 
 const renderHTML = async (
@@ -71,14 +47,12 @@ const renderHTML = async (
         title="music-motion"
         states={store.getState()}
       >
-        <DataProvider data={createServerData()}>
-          <App
-            store={store}
-            isServer
-            location={ctx.request.path}
-            preloadedState={store.getState()}
-          />
-        </DataProvider>
+        <App
+          store={store}
+          isServer
+          location={ctx.request.path}
+          preloadedState={store.getState()}
+        />
       </Html>
     )
   } catch (error) {
