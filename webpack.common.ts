@@ -1,5 +1,7 @@
 import * as webpack from "webpack"
 import path from "path"
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin"
+
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
@@ -46,20 +48,20 @@ export const babelPresets = (env?: "node" | "legacy") => {
   return common
 }
 
-const webpackCommonPlugins =
-  isDEV && !isSSR
-    ? [
-        new webpack.DefinePlugin({
-          "process.env.SSR": JSON.stringify(process.env.SSR),
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-      ]
-    : [
-        new webpack.DefinePlugin({
-          "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
-          "process.env.SSR": JSON.stringify(process.env.SSR),
-        }),
-      ]
+const webpackCommonPlugins = isCSRDEV
+  ? [
+      new webpack.DefinePlugin({
+        "process.env.SSR": JSON.stringify(process.env.SSR),
+      }),
+
+      new ReactRefreshWebpackPlugin(),
+    ]
+  : [
+      new webpack.DefinePlugin({
+        "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+        "process.env.SSR": JSON.stringify(process.env.SSR),
+      }),
+    ]
 
 export const webpackpPlugins: any[] = [
   ...webpackCommonPlugins,
@@ -86,9 +88,12 @@ export const webpackpPlugins: any[] = [
     : null,
   !isWebpackBuildServer ? new ForkTsCheckerWebpackPlugin() : null,
 
-  new CleanWebpackPlugin(),
+  !isCSRDEV && new CleanWebpackPlugin(),
 ].filter((p) => !!p)
-export const babelPlugin: string[] = []
+
+export const babelPlugin: string[] = [
+  isCSRDEV ? "react-refresh/babel" : "",
+].filter((p) => !!p)
 
 export const cssProcessLoaders = [
   {

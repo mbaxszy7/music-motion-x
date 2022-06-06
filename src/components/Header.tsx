@@ -10,7 +10,7 @@ const Header: FC = () => {
           console.log("header clicked!")
         }}
       >
-        header hello react deded
+        header hello react
       </div>
       <Link to="/">home</Link>
       <Link to="about">about</Link>

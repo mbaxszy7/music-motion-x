@@ -1,5 +1,3 @@
-import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin"
-
 import MiniCssExtractPlugin from "mini-css-extract-plugin"
 
 import path from "path"
@@ -22,8 +20,6 @@ const APP_PATH = path.resolve(__dirname, "src/client/index.tsx")
 
 if (isCSRDEV) {
   cssProcessLoaders.unshift("style-loader")
-  babelPlugin.push("react-refresh/babel")
-  webpackpPlugins.push(new ReactRefreshWebpackPlugin())
 } else {
   cssProcessLoaders.unshift(MiniCssExtractPlugin.loader)
   webpackpPlugins.push(
@@ -45,16 +41,16 @@ const config: webpack.Configuration = {
   output: {
     publicPath: isCSRDEV ? "/" : "/public/",
     filename: isCSRDEV
-      ? "[name]-[hash].js"
+      ? "[name]-[chunkhash].js"
       : isSSRDEV
       ? `[name].js`
       : `[name]-[contenthash].js`,
     chunkFilename: isCSRDEV
-      ? "[name]-[hash].js"
+      ? "[name]-[chunkhash].js"
       : isSSRDEV
       ? `[name].js`
       : `[name]-[contenthash].js`,
-    path: path.resolve(__dirname, "public-client"),
+    path: path.resolve(__dirname, isCSRDEV ? "dist-client" : "public-client"),
   },
 
   resolve: {

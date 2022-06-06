@@ -1,6 +1,6 @@
 import {} from "react"
 import { useQuery } from "react-query"
-import { axiosInstance } from "../../client-utils/axios"
+import { axiosInstance } from "../../axios"
 
 const Home = () => {
   const banners = useQuery("banners", () =>
