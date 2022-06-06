@@ -31,7 +31,7 @@ if (isCSRDEV) {
   )
 }
 
-const APP_PATH = path.resolve(__dirname, "./src/server.index.ts")
+const APP_PATH = path.resolve(__dirname, "./src/server/index.ts")
 
 const config: webpack.Configuration = {
   target: "node",

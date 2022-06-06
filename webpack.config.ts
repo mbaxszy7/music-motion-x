@@ -18,7 +18,7 @@ import {
 
 // const isPROSSR = isSSR
 
-const APP_PATH = path.resolve(__dirname, "src/client.index.tsx")
+const APP_PATH = path.resolve(__dirname, "src/client/index.tsx")
 
 if (isCSRDEV) {
   cssProcessLoaders.unshift("style-loader")

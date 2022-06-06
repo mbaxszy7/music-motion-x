@@ -9,7 +9,7 @@ import mount from "koa-mount"
 import { renderToPipeableStream } from "react-dom/server"
 import fs from "fs"
 import logger from "koa-logger"
-import renderHTML from "./server-utils/renderHTML"
+import renderHTML from "./renderHTML"
 
 const isDEV = process.env.NODE_ENV === "development"
 

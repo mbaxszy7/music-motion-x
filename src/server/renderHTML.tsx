@@ -4,8 +4,8 @@ import { Context } from "koa"
 import { matchRoutes, RouteMatch } from "react-router"
 
 import routes from "../routes"
-import getReduxStore from "../createStore"
-import Html from "../Html"
+import getReduxStore from "../store"
+import Html from "./HTML"
 import App from "../App"
 
 const setInitialDataToStore = async (

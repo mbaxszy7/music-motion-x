@@ -2,9 +2,9 @@ import React from "react"
 
 import { hydrateRoot, createRoot } from "react-dom/client"
 
-import App from "./App"
-import getReduxStore from "./createStore"
-import "./input.css"
+import App from "../App"
+import getReduxStore from "../store"
+import "./index.css"
 
 let payloadData = {}
 try {
