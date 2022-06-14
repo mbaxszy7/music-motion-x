@@ -21,7 +21,8 @@ if (isCSRDEV) {
   cssProcessLoaders.unshift(MiniCssExtractPlugin.loader)
   webpackpPlugins.push(
     new MiniCssExtractPlugin({
-      linkType: "text/css",
+      linkType: false,
+      runtime: false,
       filename: isSSRDEV ? "[name].css" : "[name]-[contenthash].css",
       chunkFilename: isSSRDEV
         ? "[name].chunk.css"
@@ -41,6 +42,7 @@ const config: webpack.Configuration = {
   entry: APP_PATH,
 
   output: {
+    publicPath: isCSRDEV ? "/" : "/public/",
     filename: "server.app.js",
     path: path.resolve(__dirname, "public"),
   },
@@ -68,6 +70,10 @@ const config: webpack.Configuration = {
           ],
         },
         exclude: /node_modules/,
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
       },
       {
         test: /\.css$/,

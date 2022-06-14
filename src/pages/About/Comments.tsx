@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import { axiosInstance } from "../../axios"
+import axiosInstance from "@/fetcher"
 
 const Comments = () => {
   const newest = useQuery("todos", () => axiosInstance.get("/api/album/newest"))

@@ -45,7 +45,9 @@ const assetsJS: { [x: string]: string }[] = isDEV
       .map((asset: { name: string; chunkNames: string[] }) => {
         if (asset.name.endsWith(".js") && asset.chunkNames.includes("main"))
           return { "main.js": `${publicPath}${asset.name}` }
-        else return { [asset.name]: `${publicPath}${asset.name}` }
+        else if (asset.name.endsWith(".js"))
+          return { [asset.name]: `${publicPath}${asset.name}` }
+        else return []
       })
       .filter((p: any) => !!p)
 
@@ -55,7 +57,9 @@ const assetsCSS = isDEV
       .map((asset: { name: string; chunkNames: string[] }) => {
         if (asset.name.endsWith(".css") && asset.chunkNames.includes("main"))
           return { "main.css": `${publicPath}${asset.name}` }
-        else return null
+        else if (asset.name.endsWith(".css"))
+          return { [asset.name]: `${publicPath}${asset.name}` }
+        else return []
       })
       .filter((p: any) => !!p)
 

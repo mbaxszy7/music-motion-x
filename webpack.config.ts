@@ -14,8 +14,6 @@ import {
   webpackpPlugins,
 } from "./webpack.common"
 
-// const isPROSSR = isSSR
-
 const APP_PATH = path.resolve(__dirname, "src/client/index.tsx")
 
 if (isCSRDEV) {
@@ -83,6 +81,10 @@ const config: webpack.Configuration = {
           plugins: babelPlugin,
         },
         exclude: /node_modules/,
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
       },
       {
         test: /\.css$/,

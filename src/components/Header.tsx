@@ -13,7 +13,7 @@ const Header: FC = () => {
         header hello react
       </div>
       <Link to="/">home</Link>
-      <Link to="about">about</Link>
+      <Link to="discover">discover</Link>
     </header>
   )
 }

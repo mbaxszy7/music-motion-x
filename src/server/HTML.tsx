@@ -42,6 +42,7 @@ export default function Html({
           }}
         />
         <div id="root">{children}</div>
+        <div id="modal_root"></div>
         <textarea
           id="data-context"
           style={{ display: "none" }}

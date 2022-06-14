@@ -17,10 +17,9 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
+    "baseUrl": "src",
     "paths": {
-      "interfaces/*": ["./src/interfaces/*"],
-      "interfaces": ["./src/interfaces/"],
-      "@/*": ["./src/components/*"]
+      "@/*": ["*"]
     },
     "incremental": true,
     "plugins": [{ "name": "typescript-plugin-css-modules" }]

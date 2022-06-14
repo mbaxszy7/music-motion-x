@@ -1,6 +1,13 @@
 import { FC } from "react"
 import About from "./pages/About"
 import Home from "./pages/Home"
+import Discover from "./pages/Discover"
+import DiscoverPlaylist from "@/pages/DiscoverPlaylist"
+import DiscoverSongs from "@/pages/DiscoverSongs"
+import PlaylistDetail from "@/pages/PlaylistDetail"
+import AlbumDetail from "@/pages/AlbumDetail"
+import ArtistMedia from "@/pages/ArtistMedia"
+import Artist from "@/pages/Artist"
 import { RouteObject } from "react-router"
 
 const ElementEnhance = (Comp: FC) => {
@@ -10,7 +17,13 @@ const ElementEnhance = (Comp: FC) => {
   return importable
 }
 
-const routes: RouteObject[] = [
+type IRoute = {
+  path: RouteObject["path"]
+  element: FC
+  children?: IRoute[]
+}
+
+const routes: IRoute[] = [
   {
     path: "/",
     element: Home,
@@ -19,12 +32,49 @@ const routes: RouteObject[] = [
     path: "/about",
     element: About,
   },
-].map((route) => {
+  {
+    path: "/discover",
+    element: Discover,
+  },
+  {
+    path: "/discover/playlist",
+    element: DiscoverPlaylist,
+  },
+  {
+    path: "/discover/songs",
+    element: DiscoverSongs,
+  },
+  {
+    path: "/playlist/:playlistid",
+    element: PlaylistDetail,
+  },
+  {
+    path: "/album/:albumid",
+    element: AlbumDetail,
+  },
+  {
+    path: "/artist/:artistid",
+    element: Artist,
+  },
+  {
+    path: "/artist/media/:artistid/:type",
+    element: ArtistMedia,
+  },
+]
+
+const mappedRoutes: RouteObject[] = routes.map((route) => {
   const Ele = ElementEnhance(route.element)
-  return {
+  const enhanceRoute: RouteObject = {
     path: route.path,
     element: <Ele />,
   }
+  if (route.children) {
+    enhanceRoute.children = route.children.map((child) => {
+      const ChildEle = ElementEnhance(child.element)
+      return { path: child.path, element: <ChildEle /> }
+    })
+  }
+  return enhanceRoute
 })
 
-export default routes
+export default mappedRoutes

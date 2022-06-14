@@ -1,6 +1,7 @@
 import {} from "react"
 import { useQuery } from "react-query"
-import { axiosInstance } from "../../axios"
+import axiosInstance from "@/fetcher"
+import { Link } from "react-router-dom"
 
 const Home = () => {
   const banners = useQuery("banners", () =>
@@ -9,6 +10,7 @@ const Home = () => {
 
   return (
     <>
+      <Link to="discover">discover</Link>
       {banners.data?.data.banners.map((banner) => (
         <img src={banner.pic} key={banner.pic} />
       ))}

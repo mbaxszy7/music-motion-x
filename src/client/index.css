@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#root {
+  max-height: 100vh;
+  height: 100vh;
+  overflow-y: scroll;
+  padding-bottom: 63px;
+  background-color: #212121;
+  -webkit-overflow-scrolling: touch;
+}
+
+.single_line {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.two_lines {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  white-space: initial;
+}
+
+.multiple_line {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  /** 对象作为伸缩盒子模型显示，必须结合的属性 **/
+  -webkit-box-orient: vertical;
+
+  /** 设置或检索伸缩盒对象的子元素的排列方式，必须结合的属性 **/
+  -webkit-line-clamp: 3;
+  /** 显示的行数 **/
+  overflow: hidden;
+  /** 隐藏超出的内容 **/
+}

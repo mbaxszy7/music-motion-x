@@ -12,7 +12,7 @@ import { BrowserRouter } from "react-router-dom"
 import { ErrorBoundary } from "react-error-boundary"
 import { Provider } from "react-redux"
 import { RouteMatch, Routes, Route } from "react-router"
-import Header from "./components/Header"
+
 import routes from "./routes"
 import NotFound from "./pages/NotFound"
 
@@ -39,10 +39,20 @@ const App = ({
   const { reset } = useQueryErrorResetBoundary()
   const content = (
     <>
-      <Header />
+      {/* <PageBack isBlack={false} /> */}
       <Routes>
         {routes.map((r) => (
-          <Route element={r.element} path={r.path} key={r.path} />
+          <Route element={r.element} path={r.path} key={r.path}>
+            {r.children &&
+              r.children.length > 0 &&
+              r.children.map((child) => (
+                <Route
+                  element={child.element}
+                  path={child.path}
+                  key={child.path}
+                />
+              ))}
+          </Route>
         ))}
         <Route path="*" element={<NotFound />} />
       </Routes>

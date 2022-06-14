@@ -7,9 +7,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
 
 export const webpaclAlias = {
-  "interfaces/*": ["./src/interfaces/*"],
-  interfaces: ["./src/interfaces/"],
-  "@/*": ["./src/components/*"],
+  "@": path.resolve(__dirname, "src"),
 }
 export const isSSR = process.env.SSR === "true"
 export const isDEV = process.env.NODE_ENV === "development"
