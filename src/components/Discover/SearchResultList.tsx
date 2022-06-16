@@ -28,6 +28,7 @@ const SearchResultList: FC<{ searchResultList: any[] }> = ({
                   const media = result.getDesc(data)
                   return { ...media, type: "song" }
                 })}
+                lazyAll
               />
             </Fragment>
           )

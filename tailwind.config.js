@@ -49,10 +49,20 @@ module.exports = {
             opacity: 0.6,
           },
         },
+        "lds-ring": {
+          "0%": {
+            transform: "rotate(0deg)",
+          },
+          "100%": {
+            transform: " rotate(360deg)",
+          },
+        },
       },
       animation: {
         "spin-loading": "spin-bounce 2s infinite ease-in-out",
         "placeholder-loading": "placeholder-bounce 1.5s infinite",
+        "ring-spin-loading":
+          "lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite",
       },
       transitionProperty: {
         width: "width",

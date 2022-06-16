@@ -193,10 +193,14 @@ const ArtistDetails = () => {
         </Link>
         <BigAlbumsList list={albums ?? undefined} placeHolderCount={4} />
 
-        <MediaItemTitle title="热门MV" />
-        <div className="flex flex-wrap  justify-between">
-          <MVList list={mvs ?? undefined} placeHolderCount={4} />
-        </div>
+        {!!mvs && mvs?.length > 0 && (
+          <>
+            <MediaItemTitle title="热门MV" />
+            <div className="flex flex-wrap  justify-between">
+              <MVList list={mvs ?? undefined} placeHolderCount={4} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   )

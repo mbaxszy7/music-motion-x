@@ -2,8 +2,8 @@ import { FC } from "react"
 import InnerModal, { ModalMask } from "./InnerModal"
 
 const Dialog: FC<{
-  title: string
-  dialogText: string
+  title?: string
+  dialogText?: string
   onCancelClick: () => void
   onConfirmClick: () => void
 }> = ({

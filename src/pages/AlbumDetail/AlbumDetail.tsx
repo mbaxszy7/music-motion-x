@@ -14,6 +14,8 @@ import InnerModal from "@/components/InnerModal"
 import useEffectShowModal from "@/hooks/useEffectShowModal"
 import { MyImage } from "@/components/Image"
 import { ArtistItem, SongList } from "@/components/MediaItemList"
+import { rootSlice } from "@/store"
+import { useDispatch } from "react-redux"
 
 const AlbumBrief: FC<Partial<AlbumDetails>> = ({
   shareCount,
@@ -143,6 +145,7 @@ const AlbumDetail = () => {
     callScrollContainerRef,
     scrollValueFormatter,
   )
+  const dispatch = useDispatch()
 
   useRootScrollTop()
 
@@ -182,7 +185,9 @@ const AlbumDetail = () => {
           <PlaySongsBar
             songsCount={albumDetails?.songs?.length ?? 0}
             withoutBar={false}
-            onPlayIconClick={console.log}
+            onPlayIconClick={() => {
+              dispatch(rootSlice.actions.playSongs(albumDetails?.songs ?? []))
+            }}
           />
           <div className=" mt-6 pl-1">
             <SongList

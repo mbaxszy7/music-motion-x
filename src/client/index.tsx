@@ -30,3 +30,14 @@ if (process.env.SSR === "true") {
     <App store={store} isServer={false} preloadedState={{}} />,
   )
 }
+
+window.addEventListener("load", () => {
+  navigator.serviceWorker
+    .register("/public/service-worker.js", { scope: "/" })
+    .then((registration) => {
+      console.log("SW registered: ", registration)
+    })
+    .catch((registrationError) => {
+      console.log("SW registration failed: ", registrationError)
+    })
+})

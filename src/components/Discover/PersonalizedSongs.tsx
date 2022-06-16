@@ -4,16 +4,45 @@ import type { PersonalizedSong } from "@/interfaces/song"
 import css from "./PersonalizedSongs.module.css"
 import { memo, useMemo } from "react"
 import { MyImage } from "@/components/Image"
+import { useDispatch } from "react-redux"
+import { rootSlice } from "@/store"
 
 const PersonalizedSongs = memo(() => {
+  const dispatch = useDispatch()
   const { data } = useQuery("/api/personalized/newsong", () =>
     fetcher
-      .get<{ result: PersonalizedSong[] }>("/api/personalized/newsong")
-      .then((res) => res.data),
+      .get<{ result: any[] }>("/api/personalized/newsong")
+      .then((res) => res.data.result)
+      .then((ret) => {
+        return ret.map((s) => {
+          const song = s.song
+          const names = song.artists.length
+            ? [...song.artists]
+                .reverse()
+                .reduce((ac, a) => `${a.name} ${ac}`, "")
+            : ""
+          return {
+            ...s,
+            song: {
+              imgUrl: song.album.picUrl,
+              title: `${song.name}`,
+              desc: names,
+              artistId: song.artists[0].id,
+              albumId: song.album.id,
+              artistName: names,
+              albumName: song.album.name,
+              type: "song",
+              id: song.id,
+            },
+          }
+        }) as PersonalizedSong[]
+      }),
   )
 
+  // console.log(data)
+
   const threePersonalizedSongs = useMemo(
-    () => data?.result.slice?.(0, 3).map((song) => song.picUrl),
+    () => data?.slice?.(0, 3).map((song) => song.picUrl),
     [data],
   )
 
@@ -41,7 +70,14 @@ const PersonalizedSongs = memo(() => {
       <p className="title text-center text-dg text-sm flex-1 tracking-widest">
         个性好歌推荐
       </p>
-      <div className={`${css.right_play_bar} bg-secondary`} />
+      <div
+        className={`${css.right_play_bar} bg-secondary`}
+        onClick={() => {
+          dispatch(
+            rootSlice.actions.playSongs(data?.map?.((ret) => ret.song) ?? []),
+          )
+        }}
+      />
     </div>
   )
 })

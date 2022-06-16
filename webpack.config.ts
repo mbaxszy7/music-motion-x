@@ -1,5 +1,3 @@
-import MiniCssExtractPlugin from "mini-css-extract-plugin"
-
 import path from "path"
 import * as webpack from "webpack"
 import "webpack-dev-server"
@@ -15,22 +13,6 @@ import {
 } from "./webpack.common"
 
 const APP_PATH = path.resolve(__dirname, "src/client/index.tsx")
-
-if (isCSRDEV) {
-  cssProcessLoaders.unshift("style-loader")
-} else {
-  cssProcessLoaders.unshift(MiniCssExtractPlugin.loader)
-  webpackpPlugins.push(
-    new MiniCssExtractPlugin({
-      linkType: "text/css",
-      filename: isSSRDEV ? "[name].css" : "[name]-[contenthash].css",
-      chunkFilename: isSSRDEV
-        ? "[name].chunk.css"
-        : "[name].[contenthash].chunk.css",
-      ignoreOrder: true,
-    }),
-  )
-}
 
 const config: webpack.Configuration = {
   target: ["web", "es6"],

@@ -1,14 +1,17 @@
 import InnerModal, { ModalMask } from "@/components/InnerModal"
 import useEffectShowModal from "@/hooks/useEffectShowModal"
 import { MouseEventHandler, useCallback, memo, useState, useRef } from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useQuery } from "react-query"
 import fetcher from "@/fetcher"
+import type Song from "@/interfaces/song"
 import nextSong from "@/assets/nextSong.png"
 import attention from "@/assets/attention.png"
 import artist from "@/assets/artist.png"
 import album from "@/assets/album.png"
 import useIsomorphicEffect from "@/hooks/useIsomorphicEffect"
+import { useDispatch } from "react-redux"
+import { rootSlice } from "@/store"
 
 const SongMore = memo(
   ({
@@ -18,6 +21,7 @@ const SongMore = memo(
     songName,
     albumId,
     songId,
+    imgUrl,
   }: {
     artistName: string
     albumName: string
@@ -25,7 +29,9 @@ const SongMore = memo(
     albumId: number
     songName: string
     songId: number
+    imgUrl: string
   }) => {
+    const dispatch = useDispatch()
     const ele = useRef<HTMLDivElement | null>(null)
     const [fetch, setFetch] = useState(false)
     const {
@@ -34,6 +40,8 @@ const SongMore = memo(
       onModalOpen: onMoreClick,
       onModalClose: onClose,
     } = useEffectShowModal()
+
+    const nav = useNavigate()
     const handleMoreClick: MouseEventHandler = useCallback(
       (e) => {
         e.stopPropagation()
@@ -128,7 +136,21 @@ const SongMore = memo(
                 <ul className="contents min-h-[200px] max-h-[55vh] overflow-y-auto">
                   <li
                     className="next_song text-fg pl-11 mr-0 mb-0 ml-1 text-sm h-[30px] leading-[30px] mt-10"
-                    onClick={() => {}}
+                    onClick={() => {
+                      if (isValid) {
+                        dispatch(
+                          rootSlice.actions.playAtNext({
+                            title: songName,
+                            artistName,
+                            albumName,
+                            id: songId,
+                            artistId,
+                            albumId,
+                            imgUrl,
+                          } as Song),
+                        )
+                      }
+                    }}
                     style={{
                       backgroundPosition: "10px center",
                       backgroundRepeat: "no-repeat",
@@ -149,14 +171,15 @@ const SongMore = memo(
                         backgroundSize: "23px 23px",
                         backgroundImage: `url(${artist})`,
                       }}
+                      onClick={(e) => {
+                        dispatch(rootSlice.actions.setShowPlayModal(false))
+                        handleModalClose(e)
+                        setTimeout(() => {
+                          nav(`/artist/${artistId}`)
+                        }, 400)
+                      }}
                     >
-                      <Link
-                        to={`/artist/${artistId}`}
-                        onClick={handleModalClose}
-                        className=" text-fg"
-                      >
-                        {`歌手 ${artistName}`}
-                      </Link>
+                      {`歌手 ${artistName}`}
                     </li>
                   )}
                   {albumName && (
@@ -168,11 +191,15 @@ const SongMore = memo(
                         backgroundSize: "23px 23px",
                         backgroundImage: `url(${album})`,
                       }}
+                      onClick={(e) => {
+                        dispatch(rootSlice.actions.setShowPlayModal(false))
+                        handleModalClose(e)
+                        setTimeout(() => {
+                          nav(`/album/${albumId}`)
+                        }, 400)
+                      }}
                     >
-                      <Link
-                        to={`/album/${albumId}`}
-                        className=" text-fg"
-                      >{`专辑 ${albumName}`}</Link>
+                      {`专辑 ${albumName}`}
                     </li>
                   )}
                 </ul>

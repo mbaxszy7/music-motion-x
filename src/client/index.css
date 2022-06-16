@@ -2,8 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: #212121;
+}
+
 #root {
   max-height: 100vh;
+  max-width: 820px;
+  margin: 0 auto;
   height: 100vh;
   overflow-y: scroll;
   padding-bottom: 63px;

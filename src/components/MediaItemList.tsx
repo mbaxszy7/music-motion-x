@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-// import cx from "classNames"
+// import cx from "classnames"
 import React, { FC, CSSProperties, memo } from "react"
 import moreIcon from "@/assets/more.png"
+import cx from "classnames"
 // import { Link, useNavigate } from "react-router-dom"
 import type PlayList from "@/interfaces/playlist"
 import type Song from "@/interfaces/song"
@@ -19,6 +20,8 @@ import { Link } from "react-router-dom"
 
 import MyPlaceholder from "@/components/MyPlaceholder"
 import VirtualizedList from "./VScrollList"
+import { useDispatch, useSelector } from "react-redux"
+import { rootSlice, RootState } from "@/store"
 
 export const MediaItemTitle: FC<{
   title: string
@@ -98,8 +101,8 @@ const BigPlayItem: FC<{
 }
 
 const SongItem: FC<{
-  artist: string
-  picUrl: string
+  artistName: string
+  imgUrl: string
   title: string
   lazyLoading: boolean
   more?: boolean
@@ -108,11 +111,11 @@ const SongItem: FC<{
   albumName: string
   artistId: number
   albumId: number
-  songId: number
+  id: number
 }> = memo(
   ({
-    artist,
-    picUrl,
+    artistName,
+    imgUrl,
     title,
     lazyLoading,
     more,
@@ -121,10 +124,30 @@ const SongItem: FC<{
     albumName,
     artistId,
     albumId,
-    songId,
+    id,
   }) => {
+    const dispatch = useDispatch()
+    const currentPlayId = useSelector<RootState>(
+      (state) => state.root.currentPlaySong.id,
+    )
     return (
-      <div className=" flex items-center mb-5">
+      <div
+        className=" flex items-center mb-5"
+        onClick={() => {
+          dispatch(
+            rootSlice.actions.playSong({
+              imgUrl,
+              title,
+              artistId,
+              albumId,
+              artistName,
+              albumName,
+              type: "song",
+              id,
+            } as Song),
+          )
+        }}
+      >
         {indexedPic ? (
           <div className=" font-bold mr-6 text-fg">
             {(index + "").padStart(2, "0")}
@@ -133,12 +156,12 @@ const SongItem: FC<{
           <div className=" w-[44px] h-[44px] rounded-[4px] overflow-hidden relative mr-4">
             {lazyLoading ? (
               <MyImage
-                url={picUrl}
+                url={imgUrl}
                 className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
               />
             ) : (
               <img
-                src={picUrl}
+                src={imgUrl}
                 className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
               />
             )}
@@ -146,20 +169,31 @@ const SongItem: FC<{
         )}
 
         <div className=" flex flex-col w-[70%] max-w-[70%]">
-          <MyPlaceholder ready={!!title && !!artist} rows={2} type="textBlock">
-            <p className=" text-fg single_line">{title}</p>
-            <p className=" text-dg text-sm single_line">{artist}</p>
+          <MyPlaceholder
+            ready={!!title && !!artistName}
+            rows={2}
+            type="textBlock"
+          >
+            <p
+              className={cx(" text-fg single_line", {
+                " text-secondary": currentPlayId === id,
+              })}
+            >
+              {title}
+            </p>
+            <p className=" text-dg text-sm single_line">{artistName}</p>
           </MyPlaceholder>
         </div>
 
-        {(!!picUrl || more) && (
+        {(!!imgUrl || more) && (
           <SongMore
-            artistName={artist}
+            artistName={artistName}
             albumName={albumName}
             artistId={artistId}
             songName={title}
             albumId={albumId}
-            songId={songId}
+            songId={id}
+            imgUrl={imgUrl}
           />
         )}
       </div>
@@ -169,34 +203,43 @@ const SongItem: FC<{
 
 SongItem.displayName = "SongItem"
 
-const PrivateMV: FC<{ imgUrl: string; title: string }> = ({
+const PrivateMV: FC<{ imgUrl: string; title: string; id: number }> = ({
   imgUrl,
   title,
+  id,
 }) => {
   return (
-    <div className=" flex items-center mb-5 flex-col">
-      <div className=" text-[0px] w-full relative pb-[37%] rounded-[4px] mb-3 overflow-hidden">
-        <MyImage
-          url={imgUrl}
-          className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
-        />
+    <Link to={`/mv/${id}`}>
+      <div className=" flex items-center mb-5 flex-col">
+        <div className=" text-[0px] w-full relative pb-[37%] rounded-[4px] mb-3 overflow-hidden">
+          <MyImage
+            url={imgUrl}
+            className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
+          />
+        </div>
+        <p className=" text-fg two_lines">{title}</p>
       </div>
-      <p className=" text-fg two_lines">{title}</p>
-    </div>
+    </Link>
   )
 }
 
-const MVItem: FC<{ imgUrl: string; title: string }> = ({ imgUrl, title }) => {
+const MVItem: FC<{ imgUrl: string; title: string; id: number }> = ({
+  imgUrl,
+  title,
+  id,
+}) => {
   return (
-    <div className=" flex items-center mb-5 flex-col w-[48%]">
-      <div className=" text-[0px] w-full relative pb-[63.9%] rounded-[4px] mb-3 overflow-hidden">
-        <MyImage
-          url={imgUrl}
-          className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
-        />
+    <Link to={`/mv/${id}`} className=" block w-[48%]">
+      <div className=" flex items-center mb-5 flex-col w-full">
+        <div className=" text-[0px] w-full relative pb-[63.9%] rounded-[4px] mb-3 overflow-hidden">
+          <MyImage
+            url={imgUrl}
+            className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
+          />
+        </div>
+        <p className=" text-fg two_lines text-left w-full">{title}</p>
       </div>
-      <p className=" text-fg two_lines">{title}</p>
-    </div>
+    </Link>
   )
 }
 
@@ -204,28 +247,30 @@ const SmallMVItem: FC<
   NormalMV & {
     lazyLoading: boolean
   }
-> = ({ imgUrl, title, lazyLoading, desc }) => {
+> = ({ imgUrl, title, lazyLoading, desc, id }) => {
   return (
-    <div className=" flex items-center mb-5">
-      <div className=" w-[44px] h-[44px] rounded-[4px] overflow-hidden relative mr-4">
-        {lazyLoading ? (
-          <MyImage
-            url={imgUrl}
-            className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
-          />
-        ) : (
-          <img
-            src={imgUrl}
-            className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
-          />
-        )}
-      </div>
+    <Link to={`/mv/${id}`}>
+      <div className=" flex items-center mb-5">
+        <div className=" w-[44px] h-[44px] rounded-[4px] overflow-hidden relative mr-4">
+          {lazyLoading ? (
+            <MyImage
+              url={imgUrl}
+              className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
+            />
+          ) : (
+            <img
+              src={imgUrl}
+              className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
+            />
+          )}
+        </div>
 
-      <div className=" flex flex-col w-[70%] max-w-[70%]">
-        <p className=" text-fg single_line">{title}</p>
-        <p className=" text-dg text-sm single_line">{desc}</p>
+        <div className=" flex flex-col w-[70%] max-w-[70%]">
+          <p className=" text-fg single_line">{title}</p>
+          <p className=" text-dg text-sm single_line">{desc}</p>
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
@@ -396,10 +441,10 @@ export const SongList: FC<{
             artistId={item.artistId}
             albumId={item.albumId}
             albumName={item.albumName}
-            songId={item.id}
-            picUrl={item.imgUrl}
+            id={item.id}
+            imgUrl={item.imgUrl}
             key={`${item.id}-${index}`}
-            artist={item.artistName}
+            artistName={item.artistName}
             title={item.title}
             lazyLoading={lazyAll ? true : index > 3}
             indexedPic={indexedPic}
@@ -422,10 +467,10 @@ export const SongList: FC<{
               artistId={item.artistId}
               albumId={item.albumId}
               albumName={item.albumName}
-              songId={item.id}
-              picUrl={item.imgUrl}
+              id={item.id}
+              imgUrl={item.imgUrl}
               key={`${item.id}-${index}`}
-              artist={item.artistName}
+              artistName={item.artistName}
               title={item.title}
               lazyLoading={lazyAll ? true : index > 3}
               indexedPic={indexedPic}
@@ -500,6 +545,7 @@ export const PrivateMVList: FC<{
               imgUrl={item.imgUrl}
               key={`${item.id}-${index}`}
               title={item.title}
+              id={item.id}
             />
           )
         },
@@ -521,6 +567,7 @@ export const MVList: FC<{
               imgUrl={item.imgUrl}
               key={`${item.id}-${index}`}
               title={item.title}
+              id={item.id}
             />
           )
         },

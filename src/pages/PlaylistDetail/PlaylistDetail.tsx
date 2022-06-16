@@ -15,6 +15,8 @@ import useEleScrollValue from "@/hooks/useEleScrollValue"
 import clamp from "@/utils/clamp"
 import InnerModal from "@/components/InnerModal"
 import useEffectShowModal from "@/hooks/useEffectShowModal"
+import { useDispatch } from "react-redux"
+import { rootSlice } from "@/store"
 
 const PlaylistBrief: FC<Omit<PlaylistDetails, "coverImgUrl" | "trackIds">> = ({
   name,
@@ -25,6 +27,7 @@ const PlaylistBrief: FC<Omit<PlaylistDetails, "coverImgUrl" | "trackIds">> = ({
 }) => {
   const { isShowModal, isShowContent, onModalOpen, onModalClose } =
     useEffectShowModal()
+
   return (
     <div>
       {isShowModal && (
@@ -176,7 +179,7 @@ const PlaylistDetailLazy = () => {
     callScrollContainerRef,
     scrollValueFormatter,
   )
-
+  const dispatch = useDispatch()
   useRootScrollTop()
 
   return (
@@ -214,7 +217,9 @@ const PlaylistDetailLazy = () => {
           <PlaySongsBar
             songsCount={playlistSongs?.length ?? 0}
             withoutBar={false}
-            onPlayIconClick={console.log}
+            onPlayIconClick={() => {
+              dispatch(rootSlice.actions.playSongs(playlistSongs ?? []))
+            }}
           />
           <div className=" mt-6 pl-1">
             <SongList list={playlistSongs ?? undefined} placeHolderCount={8} />

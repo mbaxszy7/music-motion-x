@@ -2,6 +2,7 @@
 import React, { useCallback, memo, CSSProperties, FC } from "react"
 import pageBackIcon from "@/assets/pageBack.png"
 import blackBackIcon from "@/assets/blackBack.png"
+import { Link } from "react-router-dom"
 // import { RootState } from "@/store"
 // import { useSelector } from "react-redux"
 
@@ -42,6 +43,18 @@ const PageBack: FC<{
           {title}
         </p>
       )}
+
+      <Link to="/discover">
+        <div
+          className=" rounded-[50%] w-4 h-4 flex items-center justify-center cursor-pointer ml-2"
+          style={{ border: "2px solid white" }}
+        >
+          <div
+            className=" rounded-[50%] w-2 h-2"
+            style={{ border: "4px solid white" }}
+          />
+        </div>
+      </Link>
     </div>
   )
 })

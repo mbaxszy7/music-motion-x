@@ -1,13 +1,12 @@
 import { FC } from "react"
-import About from "./pages/About"
-import Home from "./pages/Home"
-import Discover from "./pages/Discover"
+import Discover from "@/pages/Discover"
 import DiscoverPlaylist from "@/pages/DiscoverPlaylist"
 import DiscoverSongs from "@/pages/DiscoverSongs"
 import PlaylistDetail from "@/pages/PlaylistDetail"
 import AlbumDetail from "@/pages/AlbumDetail"
 import ArtistMedia from "@/pages/ArtistMedia"
 import Artist from "@/pages/Artist"
+import MV from "@/pages/MV"
 import { RouteObject } from "react-router"
 
 const ElementEnhance = (Comp: FC) => {
@@ -26,11 +25,7 @@ type IRoute = {
 const routes: IRoute[] = [
   {
     path: "/",
-    element: Home,
-  },
-  {
-    path: "/about",
-    element: About,
+    element: Discover,
   },
   {
     path: "/discover",
@@ -59,6 +54,10 @@ const routes: IRoute[] = [
   {
     path: "/artist/media/:artistid/:type",
     element: ArtistMedia,
+  },
+  {
+    path: "/mv/:mvid",
+    element: MV,
   },
 ]
 

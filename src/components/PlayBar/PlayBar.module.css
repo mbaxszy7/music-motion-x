@@ -1,0 +1,41 @@
+.play {
+  width: 0;
+  height: 0;
+  border-top: 0px solid transparent;
+  border-bottom: 15px solid rgb(254, 221, 39);
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  transform: rotate(90deg);
+  display: block;
+
+  border-radius: 3px;
+}
+
+.songlist {
+  opacity: 0.96;
+  border-radius: 12px 12px 0 0;
+  background-color: #212121;
+  position: absolute;
+  bottom: 0;
+  padding: 40px 14px 80px 14px;
+  width: 100%;
+  transition: transform 0.2s;
+  max-height: 90vh;
+}
+
+.contents {
+  min-height: 300px;
+  max-height: 70vh;
+  padding: 0 15px 15px 15px;
+  overflow-y: scroll;
+}
+
+.close {
+  position: absolute;
+  bottom: 20px;
+  color: rgb(245, 245, 245);
+  text-align: center;
+  font-size: 30px;
+  width: 100%;
+  left: 0;
+}

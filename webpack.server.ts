@@ -2,7 +2,6 @@
 // import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin"
 
 import nodeExternals from "webpack-node-externals"
-import MiniCssExtractPlugin from "mini-css-extract-plugin"
 
 import path from "path"
 import * as webpack from "webpack"
@@ -10,27 +9,10 @@ import {
   webpaclAlias,
   babelPresets,
   isCSRDEV,
-  isSSRDEV,
   cssProcessLoaders,
   webpackpPlugins,
+  babelPlugin,
 } from "./webpack.common"
-
-if (isCSRDEV) {
-  cssProcessLoaders.unshift("style-loader")
-} else {
-  cssProcessLoaders.unshift(MiniCssExtractPlugin.loader)
-  webpackpPlugins.push(
-    new MiniCssExtractPlugin({
-      linkType: false,
-      runtime: false,
-      filename: isSSRDEV ? "[name].css" : "[name]-[contenthash].css",
-      chunkFilename: isSSRDEV
-        ? "[name].chunk.css"
-        : "[name].[contenthash].chunk.css",
-      ignoreOrder: true,
-    }),
-  )
-}
 
 const APP_PATH = path.resolve(__dirname, "./src/server/index.ts")
 
@@ -68,6 +50,7 @@ const config: webpack.Configuration = {
               },
             ],
           ],
+          plugins: babelPlugin,
         },
         exclude: /node_modules/,
       },

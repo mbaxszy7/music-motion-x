@@ -14,14 +14,57 @@ export default function Html({
           content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1, minimum-scale=1"
         />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-        <link rel="shortcut icon" href="favicon.ico" />
-
+        <meta name="apple-mobile-web-app-title" content="Pika" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="theme-color" content="#FEDD27" />
+        <link
+          rel="apple-touch-icon"
+          sizes="152x152"
+          href="/public/icon_152x152.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="152x152"
+          href="/public/icon_152x152.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="512x512"
+          href="/public/icon_512x512.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="512x512"
+          href="/public/icon_512x512.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="192x192"
+          href="/public/icon_192x192.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="192x192"
+          href="/public/icon_192x192.png"
+        />
+        <link rel="shortcut icon" href="/public/favicon.ico" />
+        <link rel="manifest" href="/public/manifest.json" />
         {assetsCSS.map((css: any) => (
           <link
-            rel="preload"
+            rel="prefetch"
             href={Object.values(css)[0] as string}
             key={Object.values(css)[0] as string}
             as="style"
+          />
+        ))}
+
+        {assetsJS.map((css: any) => (
+          <link
+            rel="prefetch"
+            href={Object.values(css)[0] as string}
+            key={Object.values(css)[0] as string}
+            as="script"
           />
         ))}
 

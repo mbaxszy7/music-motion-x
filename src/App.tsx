@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 
-import React from "react"
+import React, { Suspense } from "react"
 import { StaticRouter, StaticRouterProps } from "react-router-dom/server"
 import {
   QueryClient,
@@ -12,9 +12,11 @@ import { BrowserRouter } from "react-router-dom"
 import { ErrorBoundary } from "react-error-boundary"
 import { Provider } from "react-redux"
 import { RouteMatch, Routes, Route } from "react-router"
+import ErrorFound from "@/components/ErrorPage"
 
 import routes from "./routes"
 import NotFound from "./pages/NotFound"
+import PlayBar from "@/components/PlayBar"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -40,6 +42,10 @@ const App = ({
   const content = (
     <>
       {/* <PageBack isBlack={false} /> */}
+      <Suspense>
+        <PlayBar />
+      </Suspense>
+
       <Routes>
         {routes.map((r) => (
           <Route element={r.element} path={r.path} key={r.path}>
@@ -68,11 +74,8 @@ const App = ({
   return (
     <ErrorBoundary
       onReset={reset}
-      fallbackRender={({ resetErrorBoundary }) => (
-        <div>
-          There was an error!
-          <button onClick={() => resetErrorBoundary()}>Try again</button>
-        </div>
+      fallbackRender={({ resetErrorBoundary, error }) => (
+        <ErrorFound resetErrorBoundary={resetErrorBoundary} error={error} />
       )}
     >
       <Provider store={store} serverState={preloadedState || {}}>

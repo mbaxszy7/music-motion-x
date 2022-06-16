@@ -7,9 +7,10 @@
     "dev:server": "BUILD=server SSR=true NODE_ENV=development TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode=development --config webpack.server.ts --watch ",
     "dev:start": "nodemon ./public/server.app.js",
     "dev:csr": " SSR=false NODE_ENV=development TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack serve --mode=development",
-    "build:client": "SSR=true NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode=production --profile --json=compilation-stats.json",
-    "build:server": "BUILD=server SSR=true NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode=production --config webpack.server.ts --profile ",
-    "build": "npm run build:client && npm run build:server",
+    "build:client:stats": "SSR=true NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode=production --profile --json=compilation-stats.json",
+    "build:client": "SSR=true NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode=production",
+    "build:server": "BUILD=server SSR=true NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode=production --config webpack.server.ts ",
+    "build": "npm run build:client:stats && npm run build:client && npm run build:server",
     "build:start": "node ./public/server.app.js"
   },
   "lint-staged": {
@@ -50,8 +51,10 @@
     "@typescript-eslint/parser": "^5.16.0",
     "autoprefixer": "^10.4.4",
     "babel-loader": "^8.2.4",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "clean-webpack-plugin": "^4.0.0",
-    "commitizen": "^4.2.4",
+    "commitizen": "^1.0.4",
+    "copy-webpack-plugin": "^11.0.0",
     "core-js": "^3.21.1",
     "css-loader": "^6.7.1",
     "eslint": "^7.32.0",
@@ -79,10 +82,12 @@
     "ts-node": "^10.7.0",
     "tsconfig-paths": "^3.14.1",
     "typescript": "^4.6.3",
-    "typescript-plugin-css-modules": "^3.4.0",
+    "typescript-plugin-css-modules": "^2.8.0",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "^4.7.4",
+    "webpack-pwa-manifest": "^4.3.0",
+    "workbox-webpack-plugin": "^6.5.3"
   },
   "license": "MIT",
   "dependencies": {
@@ -111,6 +116,13 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "tti-polyfill": "^0.2.2",
-    "webpack-node-externals": "^3.0.0"
+    "webpack-node-externals": "^3.0.0",
+    "workbox-broadcast-update": "^6.5.3",
+    "workbox-cacheable-response": "^6.5.3",
+    "workbox-core": "^6.5.3",
+    "workbox-expiration": "^6.5.3",
+    "workbox-precaching": "^6.5.3",
+    "workbox-routing": "^6.5.3",
+    "workbox-strategies": "^6.5.3"
   }
 }

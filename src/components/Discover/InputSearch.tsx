@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import cx from "classNames"
+import cx from "classnames"
 import {
   useState,
   useRef,

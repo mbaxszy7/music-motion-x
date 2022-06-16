@@ -1,5 +1,5 @@
 import { useQuery } from "react-query"
-import cx from "classNames"
+import cx from "classnames"
 import fetcher from "@/fetcher"
 import type Banner from "@/interfaces/banner"
 import { memo, useCallback, useRef, useState } from "react"

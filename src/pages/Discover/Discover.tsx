@@ -1,5 +1,5 @@
 import { lazy, Suspense, useState } from "react"
-import cx from "classNames"
+import cx from "classnames"
 import LazyShow from "@/components/LazyShow"
 import Spinner from "@/components/Spinner"
 import { MediaItemTitle } from "@/components/MediaItemList"
@@ -39,7 +39,7 @@ const Discover = () => {
         </Suspense>
 
         <Suspense>
-          <Link to="playlist">
+          <Link to="/discover/playlist">
             <MediaItemTitle title="Playlist_歌单" showMore />
           </Link>
 
@@ -47,7 +47,7 @@ const Discover = () => {
         </Suspense>
 
         <Suspense>
-          <Link to="songs">
+          <Link to="/discover/songs">
             <MediaItemTitle
               title="Track_新歌"
               showMore

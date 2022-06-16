@@ -2,6 +2,7 @@ export interface PersonalizedSong {
   picUrl: string
   id: number
   name: string
+  song: Song
 }
 
 export default interface Song {
