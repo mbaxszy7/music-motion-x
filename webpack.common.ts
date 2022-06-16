@@ -207,7 +207,9 @@ const cssProcessLoader = () => {
 
 const babelPlugin: any[] = [
   isCSRDEV ? "react-refresh/babel" : "",
-  ["transform-remove-console", { exclude: ["error", "warn", "info"] }],
+  !isDEV
+    ? ["transform-remove-console", { exclude: ["error", "warn", "info"] }]
+    : "",
 ].filter((p) => !!p)
 
 const webpackpPlugins = webpackPlugins()

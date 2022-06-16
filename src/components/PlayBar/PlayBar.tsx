@@ -194,7 +194,9 @@ const PlayBar = () => {
     if (audioRef.current && src?.url) {
       audioRef.current.src = src.url?.replace?.(/https?/, "https")
       audioRef.current.currentTime = 0
-      audioRef.current.play()
+      audioRef.current.play().catch(() => {
+        setShowDialog(true)
+      })
     } else if (src && !src?.url && currentPlayId) {
       setShowDialog(true)
     }
@@ -379,9 +381,10 @@ const PlayBar = () => {
     <>
       {isShowDialog && (
         <Dialog
-          title="播放出错"
+          title="播放出错，请重试"
           onCancelClick={() => setShowDialog(false)}
           onConfirmClick={() => {
+            dispatch(rootSlice.actions.playSong({} as Song))
             setShowDialog(false)
           }}
         />
