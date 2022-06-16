@@ -134,13 +134,15 @@ const PlaylistDetailLazy = () => {
 
   const { data: playlistSongs } = useQuery(
     playlistDetails?.trackIds
-      ? `/api/song/detail?ids=${playlistDetails.trackIds.join()}`
+      ? `/api/song/detail?ids=${playlistDetails.trackIds.slice(0, 100).join()}`
       : "",
     () =>
       playlistDetails
         ? fetcher
             .get<{ songs: any[] }>(
-              `/api/song/detail?ids=${playlistDetails.trackIds.join()}`,
+              `/api/song/detail?ids=${playlistDetails.trackIds
+                .slice(0, 100)
+                .join()}`,
             )
             .then((res) => {
               const { songs } = res.data
