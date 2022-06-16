@@ -370,7 +370,7 @@ const MyBanner = memo(
             {index === 0 ? (
               <img
                 className=" w-full rounded-[10px]"
-                src={b}
+                src={b ? b.replace(/https?/, "https") : ""}
                 alt=""
                 draggable={false}
               />

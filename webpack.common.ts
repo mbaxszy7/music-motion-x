@@ -128,8 +128,8 @@ const webpackPlugins = () => {
           ],
         }),
         new WebpackPwaManifest({
-          name: "Pika",
-          short_name: "Pika",
+          name: "pika-music",
+          short_name: "pika-music",
           description: "A PWA Muisc Web Site",
           display: "standalone",
           start_url: "/",

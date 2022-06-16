@@ -12,7 +12,10 @@ const Home = () => {
     <>
       <Link to="discover">discover</Link>
       {banners.data?.data.banners.map((banner) => (
-        <img src={banner.pic} key={banner.pic} />
+        <img
+          src={banner.pic ? banner.pic.replace(/https?/, "https") : ""}
+          key={banner.pic}
+        />
       ))}
     </>
   )

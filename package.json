@@ -11,7 +11,8 @@
     "build:client": "SSR=true NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode=production",
     "build:server": "BUILD=server SSR=true NODE_ENV=production TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode=production --config webpack.server.ts ",
     "build": "npm run build:client:stats && npm run build:client && npm run build:server",
-    "build:start": "node ./public/server.app.js"
+    "build:start": "node ./public/server.app.js",
+    "deploy": "pm2 deploy ecosystem.config.js production"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
