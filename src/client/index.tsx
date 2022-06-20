@@ -6,7 +6,8 @@ import App from "../App"
 import getReduxStore from "../store"
 import "./index.css"
 
-console.log("process.env.SSR", process.env.SSR)
+console.info("process.env.SSR", process.env.SSR)
+
 if (process.env.SSR === "true") {
   let payloadData = {}
   try {

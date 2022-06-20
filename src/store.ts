@@ -18,6 +18,13 @@ export const rootSlice = createSlice({
       state.currentPlaySong = action.payload
       if (state.currentPlaySongList.length === 0) {
         state.currentPlaySongList = [action.payload] as Song[]
+      } else {
+        const curIndex = state.currentPlaySongList.findIndex(
+          (song) => song.id === state.currentPlaySong.id,
+        )
+        if (curIndex === -1) {
+          state.currentPlaySongList.unshift(state.currentPlaySong)
+        }
       }
     },
     playSongs: (state, action: PayloadAction<Song[]>) => {
@@ -44,7 +51,7 @@ export const rootSlice = createSlice({
     },
     playAtNext: (state, action: PayloadAction<Song>) => {
       if (action.payload.id === state.currentPlaySong.id) return
-      if (!state.currentPlaySong) {
+      if (!state.currentPlaySong.id) {
         state.currentPlaySong = action.payload
         if (state.currentPlaySongList.length === 0) {
           state.currentPlaySongList = [action.payload] as Song[]

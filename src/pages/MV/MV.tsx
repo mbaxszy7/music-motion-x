@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import { useQuery } from "react-query"
 import fetcher from "@/fetcher"
 import { rootSlice } from "@/store"
@@ -7,12 +7,15 @@ import { MyImage } from "@/components/Image"
 import { FC } from "react"
 import { MediaItemTitle, MVList } from "@/components/MediaItemList"
 import { useDispatch } from "react-redux"
+import useIsomorphicEffect from "@/hooks/useIsomorphicEffect"
 
 const Player: FC<{ url?: string; cover?: string }> = ({ url, cover }) => {
   const dispatch = useDispatch()
+
   const setPlayBar = (show: boolean) => {
     dispatch(rootSlice.actions.setShowPlayBar(show))
   }
+
   return (
     <video
       // @ts-ignore
@@ -43,6 +46,8 @@ const Player: FC<{ url?: string; cover?: string }> = ({ url, cover }) => {
 
 const MV = () => {
   const { mvid } = useParams()
+  const dispatch = useDispatch()
+  const location = useLocation()
   const { data: details } = useQuery(`/api/mv/detail?mvid=${mvid}`, () =>
     fetcher
       .get<{ data: any }>(`/api/mv/detail?mvid=${mvid}`)
@@ -99,6 +104,12 @@ const MV = () => {
         })) as NormalMV[]
       }),
   )
+
+  useIsomorphicEffect(() => {
+    return () => {
+      dispatch(rootSlice.actions.setShowPlayBar(true))
+    }
+  }, [location.pathname])
 
   return (
     <>
