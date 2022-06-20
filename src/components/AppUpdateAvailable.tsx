@@ -28,7 +28,7 @@ const AppUpdateAvailable = () => {
   }, [])
 
   const handlePageViewChange = useCallback(() => {
-    console.log("handlePageViewChange", document.hidden)
+    console.info("handlePageViewChange", !document.hidden)
     if (!document.hidden) {
       forceSWupdate()
     }

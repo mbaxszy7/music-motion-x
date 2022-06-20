@@ -36,7 +36,7 @@ window.isUpdateAvailable = new Promise(function (resolve, reject) {
     .catch((registrationError) => {
       console.info(registrationError)
       // eslint-disable-next-line prefer-promise-reject-errors
-      reject("SW registration failed")
+      reject("service-worker registration failed")
     })
 })
 
