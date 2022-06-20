@@ -5,9 +5,12 @@ import React, { Suspense } from "react"
 import { StaticRouter, StaticRouterProps } from "react-router-dom/server"
 import {
   QueryClient,
-  QueryClientProvider,
   useQueryErrorResetBoundary,
+  Hydrate,
+  DehydratedState,
+  QueryClientProvider,
 } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 import { BrowserRouter } from "react-router-dom"
 import { ErrorBoundary } from "react-error-boundary"
 import { Provider } from "react-redux"
@@ -32,11 +35,13 @@ const App = ({
   isServer,
   location,
   preloadedState,
+  dehydratedState,
 }: {
   store: any
   isServer: boolean
   matchedRoutes?: RouteMatch[]
   location?: StaticRouterProps["location"]
+  dehydratedState?: DehydratedState
   preloadedState: { [x: string]: any }
 }) => {
   const { reset } = useQueryErrorResetBoundary()
@@ -85,7 +90,8 @@ const App = ({
     >
       <Provider store={store} serverState={preloadedState || {}}>
         <QueryClientProvider client={queryClient}>
-          {IsomophicRouter}
+          <ReactQueryDevtools initialIsOpen={false} />
+          <Hydrate state={dehydratedState}>{IsomophicRouter}</Hydrate>
         </QueryClientProvider>
       </Provider>
     </ErrorBoundary>

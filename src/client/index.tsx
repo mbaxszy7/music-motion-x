@@ -42,12 +42,16 @@ window.isUpdateAvailable = new Promise(function (resolve, reject) {
 
 if (process.env.SSR === "true") {
   let payloadData = {}
+  let dehydratedState = null
   try {
-    const ele: HTMLTextAreaElement | null = document.getElementById(
+    const eleOne: HTMLTextAreaElement | null = document.getElementById(
       "data-context",
     ) as HTMLTextAreaElement
-
-    payloadData = JSON.parse(ele?.value?.trim?.() ? ele?.value : "{}")
+    const eleTwo: HTMLTextAreaElement | null = document.getElementById(
+      "data-dehydrated",
+    ) as HTMLTextAreaElement
+    payloadData = JSON.parse(eleOne?.value?.trim?.() ? eleOne?.value : "{}")
+    dehydratedState = JSON.parse(eleTwo?.value?.trim?.() ? eleTwo?.value : "{}")
   } catch (e) {
     console.log(e)
   }
@@ -55,7 +59,12 @@ if (process.env.SSR === "true") {
   const store = getReduxStore(payloadData)
   hydrateRoot(
     document.getElementById("root")!,
-    <App store={store} isServer={false} preloadedState={payloadData} />,
+    <App
+      store={store}
+      isServer={false}
+      preloadedState={payloadData}
+      dehydratedState={dehydratedState ?? undefined}
+    />,
   )
 } else {
   const store = getReduxStore({})

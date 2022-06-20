@@ -1,45 +1,15 @@
-import fetcher from "@/fetcher"
 import { useQuery } from "react-query"
-import type { PersonalizedSong } from "@/interfaces/song"
+
 import css from "./PersonalizedSongs.module.css"
 import { memo, useMemo } from "react"
 import { MyImage } from "@/components/Image"
 import { useDispatch } from "react-redux"
 import { rootSlice } from "@/store"
+import { personalizedSongsFetch } from "@/pages/Discover/fetches"
 
 const PersonalizedSongs = memo(() => {
   const dispatch = useDispatch()
-  const { data } = useQuery("/api/personalized/newsong", () =>
-    fetcher
-      .get<{ result: any[] }>("/api/personalized/newsong")
-      .then((res) => res.data.result)
-      .then((ret) => {
-        return ret.map((s) => {
-          const song = s.song
-          const names = song.artists.length
-            ? [...song.artists]
-                .reverse()
-                .reduce((ac, a) => `${a.name} ${ac}`, "")
-            : ""
-          return {
-            ...s,
-            song: {
-              imgUrl: song.album.picUrl,
-              title: `${song.name}`,
-              desc: names,
-              artistId: song.artists[0].id,
-              albumId: song.album.id,
-              artistName: names,
-              albumName: song.album.name,
-              type: "song",
-              id: song.id,
-            },
-          }
-        }) as PersonalizedSong[]
-      }),
-  )
-
-  // console.log(data)
+  const { data } = useQuery("/api/personalized/newsong", personalizedSongsFetch)
 
   const threePersonalizedSongs = useMemo(
     () => data?.slice?.(0, 3).map((song) => song.picUrl),

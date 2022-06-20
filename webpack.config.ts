@@ -15,10 +15,14 @@ import {
 const APP_PATH = path.resolve(__dirname, "src/client/index.tsx")
 
 const config: webpack.Configuration = {
-  target: ["web", "es6"],
+  target: ["web", "es2017"],
   entry: APP_PATH,
   devtool: isCSRDEV ? "source-map" : "cheap-module-source-map",
+  experiments: {
+    outputModule: true,
+  },
   output: {
+    module: true,
     publicPath: isCSRDEV ? "/" : "/public/",
     filename: isCSRDEV
       ? "[name]-[chunkhash].js"

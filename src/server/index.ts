@@ -152,10 +152,16 @@ const response = (
 app.use(async (ctx) => {
   if (ctx.accepts(ctx.header.accept?.split(",") ?? []) === "text/html") {
     const staticContext: { NOT_FOUND: boolean } = { NOT_FOUND: false }
-    const { markup } = await renderHTML(ctx, staticContext, assetsCSS, assetsJS)
+    const { markup, queryClient } = await renderHTML(
+      ctx,
+      staticContext,
+      assetsCSS,
+      assetsJS,
+    )
 
     if (markup) {
       await response(ctx, markup, staticContext)
+      queryClient.clear()
     }
   }
 })

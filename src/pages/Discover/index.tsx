@@ -1,6 +1,6 @@
 import { Suspense, lazy } from "react"
 import Spinner from "@/components/Spinner"
-
+import { fetchServerSideProps } from "./fetchServerSideProps"
 const DiscoverLazy = lazy(() => import("./Discover"))
 
 const Discover = (props: any) => {
@@ -10,5 +10,7 @@ const Discover = (props: any) => {
     </Suspense>
   )
 }
+
+Discover.fetchServerSideProps = fetchServerSideProps
 
 export default Discover

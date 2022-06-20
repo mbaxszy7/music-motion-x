@@ -4,6 +4,7 @@ export default function Html({
   children,
   title,
   states,
+  dehydratedState,
 }: any) {
   return (
     <html>
@@ -90,6 +91,13 @@ export default function Html({
           id="data-context"
           style={{ display: "none" }}
           value={JSON.stringify(states)}
+          readOnly
+        />
+
+        <textarea
+          id="data-dehydrated"
+          style={{ display: "none" }}
+          value={JSON.stringify(dehydratedState)}
           readOnly
         />
 

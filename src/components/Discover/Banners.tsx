@@ -1,9 +1,9 @@
 import { useQuery } from "react-query"
 import cx from "classnames"
-import fetcher from "@/fetcher"
-import type Banner from "@/interfaces/banner"
+
 import { memo, useCallback, useRef, useState } from "react"
 import MyBanner from "./MyBanner"
+import { bannersfetch } from "@/pages/Discover/fetches"
 
 const Banners = memo(() => {
   const [activeBanner, setActiveBanner] = useState(0)
@@ -16,16 +16,7 @@ const Banners = memo(() => {
     setActiveBanner(index)
   }, [])
 
-  const { data } = useQuery("/api/banner?type=2", () =>
-    fetcher
-      .get<{ banners: Banner[] }>("/api/banner?type=2")
-      .then((res) => res.data.banners)
-      .then((banners) =>
-        banners.map((banner) => ({
-          pic: banner.pic,
-        })),
-      ),
-  )
+  const { data } = useQuery("/api/banner?type=2", bannersfetch)
   return (
     <div
       className=" w-full relative overflow-hidden"
