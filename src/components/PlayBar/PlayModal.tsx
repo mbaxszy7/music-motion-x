@@ -52,8 +52,6 @@ const PlayPageBottomPart: FC<{
   onNextOrPrePlay: (b: boolean, mode: "prev" | "next") => void
 }> = memo(
   ({ playState, handlePlayIconClick, onModalOpen, onNextOrPrePlay }) => {
-    // const playMode = useSelector<RootState>(state => state.root.playMode)
-
     const onPrePlay = useCallback(() => {
       onNextOrPrePlay(true, "prev")
     }, [onNextOrPrePlay])
@@ -61,10 +59,7 @@ const PlayPageBottomPart: FC<{
       onNextOrPrePlay(true, "next")
     }, [onNextOrPrePlay])
     return (
-      <div
-        className=" absolute py-0 px-2 bottom-10 left-0 my-4 w-full "
-        // style={{ width: "calc(100% - 30px)" }}
-      >
+      <div className=" absolute py-0 px-2 bottom-10 left-0 my-4 w-full ">
         <div className=" w-full h-full flex justify-between items-center px-16 relative">
           <IconImg src={preIcon} onClick={onPrePlay} />
           <IconImg
@@ -81,7 +76,7 @@ const PlayPageBottomPart: FC<{
             src={listIcon}
             onClick={onModalOpen}
             small
-            style={{ position: "absolute", right: 20 }}
+            style={{ right: 20, position: "absolute" }}
           />
         </div>
       </div>

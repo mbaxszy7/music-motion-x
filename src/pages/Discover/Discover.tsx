@@ -10,10 +10,10 @@ const Banners = lazy(() => import("@/components/Discover/Banners"))
 const PersonalizedSongs = lazy(
   () => import("@/components/Discover/PersonalizedSongs"),
 )
-const PlayList = lazy(() => import("@/components/Discover/PlayList"))
 const NewSongs = lazy(() => import("@/components/Discover/NewSongs"))
 const BigAlbums = lazy(() => import("@/components/Discover/BigAlbums"))
 const PrivateMVs = lazy(() => import("@/components/Discover/PrivateMVs"))
+const PlayList = lazy(() => import("@/components/Discover/PlayList"))
 
 const Discover = () => {
   const [isFocus, setIsFocus] = useState(false)
