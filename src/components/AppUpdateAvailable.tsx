@@ -4,6 +4,7 @@ import Dialog from "@/components/Dialog"
 
 const AppUpdateAvailable = () => {
   const [isShowDialog, setShowDialog] = useState(false)
+
   const handleOnLoad = useCallback(() => {
     // @ts-ignore
     window.isUpdateAvailable.then((isAvailable: boolean) => {
@@ -15,6 +16,28 @@ const AppUpdateAvailable = () => {
     window.addEventListener("load", handleOnLoad)
     return () => {
       window.removeEventListener("load", handleOnLoad)
+    }
+  }, [])
+
+  const forceSWupdate = useCallback(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.ready.then((registration) => {
+        registration.update()
+      })
+    }
+  }, [])
+
+  const handlePageViewChange = useCallback(() => {
+    console.log("handlePageViewChange", document.hidden)
+    if (!document.hidden) {
+      forceSWupdate()
+    }
+  }, [forceSWupdate])
+
+  useIsomorphicEffect(() => {
+    window.addEventListener("visibilitychange", handlePageViewChange)
+    return () => {
+      window.removeEventListener("visibility", handlePageViewChange)
     }
   }, [])
 

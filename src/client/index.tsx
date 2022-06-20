@@ -16,7 +16,9 @@ window.isUpdateAvailable = new Promise(function (resolve, reject) {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing
         if (installingWorker)
-          installingWorker.onstatechange = () => {
+          installingWorker.onstatechange = (e) => {
+            console.log("/public/service-worker.js")
+            console.log(installingWorker, e)
             switch (installingWorker.state) {
               case "installed":
                 if (navigator.serviceWorker.controller) {

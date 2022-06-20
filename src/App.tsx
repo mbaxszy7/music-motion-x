@@ -42,7 +42,6 @@ const App = ({
   const { reset } = useQueryErrorResetBoundary()
   const content = (
     <>
-      {/* <PageBack isBlack={false} /> */}
       <Suspense>
         <PlayBar />
       </Suspense>
