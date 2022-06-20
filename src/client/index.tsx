@@ -8,6 +8,36 @@ import "./index.css"
 
 console.info("process.env.SSR", process.env.SSR)
 
+// @ts-ignore
+window.isUpdateAvailable = new Promise(function (resolve, reject) {
+  navigator.serviceWorker
+    .register("/public/service-worker.js", { scope: "/" })
+    .then((registration) => {
+      registration.onupdatefound = () => {
+        const installingWorker = registration.installing
+        if (installingWorker)
+          installingWorker.onstatechange = () => {
+            switch (installingWorker.state) {
+              case "installed":
+                if (navigator.serviceWorker.controller) {
+                  // new update available
+                  resolve(true)
+                } else {
+                  // no update available
+                  resolve(false)
+                }
+                break
+            }
+          }
+      }
+    })
+    .catch((registrationError) => {
+      console.info(registrationError)
+      // eslint-disable-next-line prefer-promise-reject-errors
+      reject("SW registration failed")
+    })
+})
+
 if (process.env.SSR === "true") {
   let payloadData = {}
   try {
@@ -31,14 +61,3 @@ if (process.env.SSR === "true") {
     <App store={store} isServer={false} preloadedState={{}} />,
   )
 }
-
-window.addEventListener("load", () => {
-  navigator.serviceWorker
-    .register("/public/service-worker.js", { scope: "/" })
-    .then((registration) => {
-      console.log("SW registered: ", registration)
-    })
-    .catch((registrationError) => {
-      console.log("SW registration failed: ", registrationError)
-    })
-})

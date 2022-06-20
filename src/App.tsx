@@ -17,6 +17,7 @@ import ErrorFound from "@/components/ErrorPage"
 import routes from "./routes"
 import NotFound from "./pages/NotFound"
 import PlayBar from "@/components/PlayBar"
+import AppUpdateAvailable from "@/components/AppUpdateAvailable"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,7 +69,12 @@ const App = ({
   const IsomophicRouter = isServer ? (
     <StaticRouter location={location || ""}>{content}</StaticRouter>
   ) : (
-    <BrowserRouter>{content}</BrowserRouter>
+    <BrowserRouter>
+      <>
+        <AppUpdateAvailable />
+        {content}
+      </>
+    </BrowserRouter>
   )
 
   return (

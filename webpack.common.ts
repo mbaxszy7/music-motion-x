@@ -8,6 +8,7 @@ import CopyPlugin from "copy-webpack-plugin"
 import { CleanWebpackPlugin } from "clean-webpack-plugin"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
+import { version } from "./package.json"
 
 const webpaclAlias = {
   "@": path.resolve(__dirname, "src"),
@@ -55,6 +56,7 @@ const webpackPlugins = () => {
     ? [
         new webpack.DefinePlugin({
           "process.env.SSR": JSON.stringify(process.env.SSR),
+          __VERSION__: JSON.stringify(version).replaceAll(".", "-"),
         }),
         new ReactRefreshWebpackPlugin(),
       ]
@@ -62,6 +64,7 @@ const webpackPlugins = () => {
         new webpack.DefinePlugin({
           "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
           "process.env.SSR": JSON.stringify(process.env.SSR),
+          __VERSION__: JSON.stringify(version).replaceAll(".", "-"),
         }),
       ]
 
@@ -123,14 +126,13 @@ const webpackPlugins = () => {
             /manifest$/,
             /\.htaccess$/,
             /service-worker\.js$/,
-            /\.js$/,
             /\.webp$/,
           ],
         }),
         new WebpackPwaManifest({
           name: "pika-music",
           short_name: "pika-music",
-          description: "A PWA Muisc Web Site",
+          description: "A PWA Music Web Site",
           display: "standalone",
           start_url: "/",
           background_color: "#ffffff",

@@ -20,12 +20,13 @@ import { BroadcastUpdatePlugin } from "workbox-broadcast-update"
 
 // 预缓存设置
 setCacheNameDetails({
-  prefix: "pika-v",
+  // eslint-disable-next-line no-undef
+  prefix: `p-${__VERSION__}`,
 })
 
 const currentCacheNames = {
-  "home-page": "home-page",
-  scripts: "scripts",
+  "home-page": cacheNames.prefix + "-home-page",
+  scripts: cacheNames.prefix + "-scripts",
   "net-easy-p": "net-easy-p",
   "api-banner": "/api/banner?type=2",
   "api-personalized-newsong": "api-personalized-newsong",
@@ -237,19 +238,18 @@ registerRoute(
   }),
 )
 
-// 检查音乐是否可播放
-// registerRoute(
-//   /https?:\/\/81\.69\.200\.140\/api\/check\/music/,
-//   new CacheFirst({
-//     cacheName: currentCacheNames["api-music-check"],
-//     plugins: [
-//       new ExpirationPlugin({
-//         maxAgeSeconds: 60 * 60 * 24,
-//         purgeOnQuotaError: true,
-//       }),
-//       new CacheableResponsePlugin({
-//         statuses: [0, 200],
-//       }),
-//     ],
-//   }),
-// )
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheGroup) => {
+      return Promise.all(
+        cacheGroup
+          .filter((cacheName) => {
+            return !Object.values(currentCacheNames).includes(`${cacheName}`)
+          })
+          .map((cacheName) => {
+            return caches.delete(cacheName)
+          }),
+      )
+    }),
+  )
+})
