@@ -8,7 +8,7 @@ const PlaySongsBar: FC<{
 }> = memo(({ songsCount, withoutBar, onPlayIconClick }) => {
   const handlePlayIconClick = useCallback(() => {
     // eslint-disable-next-line no-unused-expressions
-    onPlayIconClick && onPlayIconClick()
+    typeof onPlayIconClick === "function" && onPlayIconClick()
   }, [onPlayIconClick])
 
   return (
