@@ -28,6 +28,7 @@ const PageBack: FC<{
           alt=""
           onClick={onPageBack}
           className=" w-4 h-4 mr-5"
+          data-testid="back-icon"
         />
       ) : (
         <img
@@ -35,6 +36,7 @@ const PageBack: FC<{
           alt=""
           onClick={onPageBack}
           className=" w-4 h-4 mr-5"
+          data-testid="back-icon"
         />
       )}
 

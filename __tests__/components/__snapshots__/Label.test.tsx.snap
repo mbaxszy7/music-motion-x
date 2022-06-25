@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`worked 1`] = `
+<DocumentFragment>
+  <span
+    class=" absolute py-[6px] px-3 rounded-[200px] bg-secondary text-[12px] text-black bottom-[14px] right-[10px] font-bold leading-none"
+    style="color: red;"
+  >
+    #test
+  </span>
+</DocumentFragment>
+`;
+
+exports[`worked 2`] = `
+<DocumentFragment>
+  <span
+    class=" absolute py-[6px] px-3 rounded-[200px] bg-secondary text-[12px] text-black bottom-[14px] right-[10px] font-bold leading-none"
+    style=""
+  >
+    #test
+  </span>
+</DocumentFragment>
+`;

@@ -7,7 +7,7 @@ export default function Html({
   dehydratedState,
 }: any) {
   return (
-    <html>
+    <html lang="zh-cn">
       <head>
         <meta charSet="utf-8" />
         <meta
@@ -99,12 +99,6 @@ export default function Html({
           style={{ display: "none" }}
           value={JSON.stringify(dehydratedState)}
           readOnly
-        />
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `assetManifest = ${JSON.stringify(assetsJS)};`,
-          }}
         />
       </body>
     </html>

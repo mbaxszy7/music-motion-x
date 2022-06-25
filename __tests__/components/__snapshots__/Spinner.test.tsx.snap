@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner & SpinnerLoading SpinnerLoading 1`] = `
+<DocumentFragment>
+  <div
+    class=" inline-block relative"
+    style="color: red;"
+  >
+    <div
+      class=" box-border block absolute w-full h-full rounded-[50%]  animate-ring-spin-loading "
+      style="border: 3px solid red; border-color: red transparent transparent transparent; animation-delay: -0.45s;"
+    />
+    <div
+      class=" box-border block absolute w-full h-full rounded-[50%]  animate-ring-spin-loading "
+      style="border: 3px solid red; border-color: red transparent transparent transparent; animation-delay: -0.3s;"
+    />
+    <div
+      class=" box-border block absolute w-full h-full rounded-[50%]  animate-ring-spin-loading "
+      style="border: 3px solid red; border-color: red transparent transparent transparent; animation-delay: -0.15s;"
+    />
+    <div
+      class=" box-border block absolute w-full h-full rounded-[50%]  animate-ring-spin-loading "
+      style="border: 3px solid red; border-color: red transparent transparent transparent;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Spinner & SpinnerLoading SpinnerLoading 2`] = `
+<DocumentFragment>
+  <div
+    class=" inline-block relative"
+  >
+    <div
+      class=" box-border block absolute w-full h-full rounded-[50%]  animate-ring-spin-loading "
+      style="border: 3px solid red; border-color: red transparent transparent transparent; animation-delay: -0.45s;"
+    />
+    <div
+      class=" box-border block absolute w-full h-full rounded-[50%]  animate-ring-spin-loading "
+      style="border: 3px solid red; border-color: red transparent transparent transparent; animation-delay: -0.3s;"
+    />
+    <div
+      class=" box-border block absolute w-full h-full rounded-[50%]  animate-ring-spin-loading "
+      style="border: 3px solid red; border-color: red transparent transparent transparent; animation-delay: -0.15s;"
+    />
+    <div
+      class=" box-border block absolute w-full h-full rounded-[50%]  animate-ring-spin-loading "
+      style="border: 3px solid red; border-color: red transparent transparent transparent;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Spinner & SpinnerLoading spinner display well 1`] = `
+<DocumentFragment>
+  <div
+    class=" w-16 h-16 z-[10000] relative my-0 mx-auto mb-0 "
+    style="color: red;"
+  >
+    <div
+      class="bounce w-full h-full rounded-full bg-secondary opacity-60 absolute top-0 left-0 animate-spin-loading"
+    />
+    <div
+      class="bounce  w-full h-full rounded-full bg-secondary opacity-60 absolute top-0 left-0 animate-spin-loading"
+      style="animation-delay: -1s;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Spinner & SpinnerLoading spinner display well 2`] = `
+<DocumentFragment>
+  <div
+    class=" w-16 h-16 z-[10000] relative my-0 mx-auto mb-0 "
+  >
+    <div
+      class="bounce w-full h-full rounded-full bg-secondary opacity-60 absolute top-0 left-0 animate-spin-loading"
+    />
+    <div
+      class="bounce  w-full h-full rounded-full bg-secondary opacity-60 absolute top-0 left-0 animate-spin-loading"
+      style="animation-delay: -1s;"
+    />
+  </div>
+</DocumentFragment>
+`;

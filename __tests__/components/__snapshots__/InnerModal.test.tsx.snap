@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InnerModal worked with modal root 1`] = `
+<DocumentFragment>
+  <div>
+    test
+  </div>
+</DocumentFragment>
+`;
+
+exports[`InnerModal worked without modal root 1`] = `<DocumentFragment />`;

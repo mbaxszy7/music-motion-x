@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyPlaceholder worked for block placeholder 1`] = `
+<DocumentFragment>
+  <span
+    class=" w-full  h-[10px] block animate-placeholder-loading"
+    style="width: 97%; margin-top: 0.6em; background-color: rgb(224, 224, 224);"
+  />
+  <span
+    class=" w-full  h-[10px] block animate-placeholder-loading"
+    style="width: 100%; margin-top: 0.6em; background-color: rgb(224, 224, 224);"
+  />
+</DocumentFragment>
+`;
+
+exports[`MyPlaceholder worked for row placeholder 1`] = `
+<DocumentFragment>
+  <span
+    class=" w-full h-4 block animate-placeholder-loading"
+    data-testid="placeholder"
+    style="background-color: rgb(224, 224, 224);"
+  />
+</DocumentFragment>
+`;

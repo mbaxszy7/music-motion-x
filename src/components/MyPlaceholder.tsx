@@ -22,11 +22,12 @@ export const TextRow: FC<{ onClick: MouseEventHandler }> = ({ onClick }) => (
     style={{
       backgroundColor: "#e0e0e0",
     }}
+    data-testid="placeholder"
   />
 )
 
 export const TextBlock: FC<{ rows: number; widths: number[] }> = memo(
-  ({ rows = 3, widths = defaultWidths }) => {
+  ({ rows, widths }) => {
     TextBlock.displayName = "TextBlock"
     return (
       <>
@@ -54,12 +55,12 @@ const MyPlaceholderType = {
 }
 
 const MyPlaceholder: FC<{
-  rows: number
+  rows?: number
   isOnlyFirstLunched?: boolean
   customPlaceholder?: ReactNode
   ready: boolean
   delay?: number
-  type: "textRow" | "textBlock"
+  type?: "textRow" | "textBlock"
   widths?: number[]
   children?: ReactNode
 }> = memo(function MyPlaceholder({
@@ -82,14 +83,17 @@ const MyPlaceholder: FC<{
     if (customPlaceholder && React.isValidElement(customPlaceholder)) {
       return customPlaceholder
     }
-    const Holder = MyPlaceholderType[type]
-    return (
-      <Holder
-        rows={rows}
-        widths={widths ?? defaultWidths}
-        onClick={handleClick}
-      />
-    )
+    if (type) {
+      const Holder = MyPlaceholderType[type]
+      return (
+        <Holder
+          rows={rows || 2}
+          widths={widths ?? defaultWidths}
+          onClick={handleClick}
+        />
+      )
+    }
+    return <></>
   }, [customPlaceholder, rows, type, widths, handleClick])
 
   useIsomorphicEffect(() => {

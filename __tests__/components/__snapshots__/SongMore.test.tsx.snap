@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SongMore render well when in viewpoint 1`] = `
+<DocumentFragment>
+   
+  <div
+    class=" flex ml-auto relative after:absolute after:w-[40px] after:h-[30px] after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2"
+    data-testid="song-more"
+  >
+    <span
+      class=" w-1 h-1 rounded-[50%] bg-dg"
+    />
+    <span
+      class=" w-1 h-1 rounded-[50%] bg-dg mx-1"
+    />
+    <span
+      class=" w-1 h-1 rounded-[50%] bg-dg "
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SongMore render well when in viewpoint 2`] = `
+<DocumentFragment>
+   
+  <div
+    class=" flex ml-auto relative after:absolute after:w-[40px] after:h-[30px] after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2"
+    data-testid="song-more"
+  >
+    <span
+      class=" w-1 h-1 rounded-[50%] bg-dg"
+    />
+    <span
+      class=" w-1 h-1 rounded-[50%] bg-dg mx-1"
+    />
+    <span
+      class=" w-1 h-1 rounded-[50%] bg-dg "
+    />
+  </div>
+  <div>
+    <div
+      class=" z-[9999999] fixed top-0 left-0 bottom-0 right-0 bg-mask bg-opacity-40"
+      data-testid="modal-mask"
+    >
+      <div
+        class=" bg-mg absolute bottom-0 pt-6 px-4 pb-36 transition-transform duration-200 w-full"
+        style="border-radius: 12px 12px 0 0; transform: translate3d(0, 0,0);"
+      >
+        <div
+          class="song_name text-fg text-base single_line"
+        >
+          ghj
+        </div>
+        <ul
+          class="contents min-h-[200px] max-h-[55vh] overflow-y-auto"
+        >
+          <li
+            class="next_song text-fg pl-11 mr-0 mb-0 ml-1 text-sm h-[30px] leading-[30px] mt-10"
+            style="background-repeat: no-repeat; background-size: 23px 23px; background-image: url(test-file-stub);"
+          >
+            下一首播放
+          </li>
+          <li
+            class="artist text-fg pl-11 mt-7 mr-0 mb-0 ml-1 text-sm h-[30px] leading-[30px] single_line"
+            style="background-repeat: no-repeat; background-size: 23px 23px; background-image: url(test-file-stub);"
+          >
+            歌手 cdf
+          </li>
+          <li
+            class="album text-fg pl-11 mt-7 mr-0 mb-0 ml-1 text-sm h-[30px] leading-[30px] single_line"
+            style="background-repeat: no-repeat; background-size: 23px 23px; background-image: url(test-file-stub);"
+          >
+            专辑 abc
+          </li>
+        </ul>
+        <div
+          class="close absolute bottom-10 text-fg text-center text-3xl w-full left-0"
+          data-close="true"
+        >
+          ×
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

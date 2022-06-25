@@ -13,7 +13,11 @@ const ErrorFound = ({
       <div>
         <span>Oops! There was an error!</span> <span className=" ml-1">:(</span>
       </div>
-      <div className=" text-secondary mt-1" onClick={resetErrorBoundary}>
+      <div
+        className=" text-secondary mt-1"
+        onClick={resetErrorBoundary}
+        data-testid="error-btn"
+      >
         Try again
       </div>
     </div>

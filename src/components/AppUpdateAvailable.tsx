@@ -37,7 +37,7 @@ const AppUpdateAvailable = () => {
   useIsomorphicEffect(() => {
     window.addEventListener("visibilitychange", handlePageViewChange)
     return () => {
-      window.removeEventListener("visibility", handlePageViewChange)
+      window.removeEventListener("visibilitychange", handlePageViewChange)
     }
   }, [])
 

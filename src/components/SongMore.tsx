@@ -78,25 +78,25 @@ const SongMore = memo(
           await import("intersection-observer")
         }
 
-        if (ele.current) {
-          observer = new IntersectionObserver(
-            (entries, originalObserver) => {
-              entries.forEach((entry) => {
-                if (entry.intersectionRatio > 0 || entry.isIntersecting) {
-                  setFetch(true)
-                  originalObserver.unobserve(entry.target)
-                }
-              })
-            },
-            {
-              // ...options,
-              rootMargin: "0px",
-              threshold: 0,
-            },
-          )
+        // if (ele.current) {
+        observer = new IntersectionObserver(
+          (entries, originalObserver) => {
+            entries.forEach((entry) => {
+              if (entry.intersectionRatio > 0 || entry.isIntersecting) {
+                setFetch(true)
+                originalObserver.unobserve(entry.target)
+              }
+            })
+          },
+          {
+            // ...options,
+            rootMargin: "0px",
+            threshold: 0,
+          },
+        )
 
-          observer.observe(ele.current)
-        }
+        observer.observe(ele.current!)
+        // }
       })()
       return () => {
         ele.current && observer && observer.unobserve(ele.current)
@@ -113,6 +113,7 @@ const SongMore = memo(
           className=" flex ml-auto relative after:absolute after:w-[40px] after:h-[30px] after:top-1/2 after:left-1/2 after:-translate-x-1/2 after:-translate-y-1/2"
           onClick={handleMoreClick}
           ref={ele}
+          data-testid="song-more"
         >
           <span className=" w-1 h-1 rounded-[50%] bg-dg" />
           <span className=" w-1 h-1 rounded-[50%] bg-dg mx-1" />
@@ -162,46 +163,44 @@ const SongMore = memo(
                   >
                     {isValid ? "下一首播放" : "暂无版权"}
                   </li>
-                  {artistName && (
-                    <li
-                      className="artist text-fg pl-11 mt-7 mr-0 mb-0 ml-1 text-sm h-[30px] leading-[30px] single_line"
-                      style={{
-                        backgroundPosition: "10px center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "23px 23px",
-                        backgroundImage: `url(${artist})`,
-                      }}
-                      onClick={(e) => {
-                        dispatch(rootSlice.actions.setShowPlayModal(false))
-                        handleModalClose(e)
-                        setTimeout(() => {
-                          nav(`/artist/${artistId}`)
-                        }, 400)
-                      }}
-                    >
-                      {`歌手 ${artistName}`}
-                    </li>
-                  )}
-                  {albumName && (
-                    <li
-                      className="album text-fg pl-11 mt-7 mr-0 mb-0 ml-1 text-sm h-[30px] leading-[30px] single_line"
-                      style={{
-                        backgroundPosition: "10px center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "23px 23px",
-                        backgroundImage: `url(${album})`,
-                      }}
-                      onClick={(e) => {
-                        dispatch(rootSlice.actions.setShowPlayModal(false))
-                        handleModalClose(e)
-                        setTimeout(() => {
-                          nav(`/album/${albumId}`)
-                        }, 400)
-                      }}
-                    >
-                      {`专辑 ${albumName}`}
-                    </li>
-                  )}
+
+                  <li
+                    className="artist text-fg pl-11 mt-7 mr-0 mb-0 ml-1 text-sm h-[30px] leading-[30px] single_line"
+                    style={{
+                      backgroundPosition: "10px center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "23px 23px",
+                      backgroundImage: `url(${artist})`,
+                    }}
+                    onClick={(e) => {
+                      dispatch(rootSlice.actions.setShowPlayModal(false))
+                      handleModalClose(e)
+                      setTimeout(() => {
+                        nav(`/artist/${artistId}`)
+                      }, 400)
+                    }}
+                  >
+                    {`歌手 ${artistName}`}
+                  </li>
+
+                  <li
+                    className="album text-fg pl-11 mt-7 mr-0 mb-0 ml-1 text-sm h-[30px] leading-[30px] single_line"
+                    style={{
+                      backgroundPosition: "10px center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "23px 23px",
+                      backgroundImage: `url(${album})`,
+                    }}
+                    onClick={(e) => {
+                      dispatch(rootSlice.actions.setShowPlayModal(false))
+                      handleModalClose(e)
+                      setTimeout(() => {
+                        nav(`/album/${albumId}`)
+                      }, 400)
+                    }}
+                  >
+                    {`专辑 ${albumName}`}
+                  </li>
                 </ul>
                 <div
                   className="close absolute bottom-10 text-fg text-center text-3xl w-full left-0"

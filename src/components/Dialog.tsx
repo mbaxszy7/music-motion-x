@@ -6,13 +6,7 @@ const Dialog: FC<{
   dialogText?: string
   onCancelClick: () => void
   onConfirmClick: () => void
-}> = ({
-  title,
-  dialogText,
-
-  onCancelClick,
-  onConfirmClick,
-}) => {
+}> = ({ title, dialogText, onCancelClick, onConfirmClick }) => {
   return (
     <InnerModal isDynamic={false}>
       <ModalMask>
@@ -31,22 +25,21 @@ const Dialog: FC<{
             </p>
           )}
           <div className="btn_group flex mt-7 ">
-            {onCancelClick && (
-              <span
-                className=" text-sm text-center inline-block flex-1 text-fg"
-                onClick={onCancelClick}
-              >
-                取消
-              </span>
-            )}
-            {onConfirmClick && (
-              <span
-                className="confirm text-secondary text-sm text-center inline-block flex-1"
-                onClick={onConfirmClick}
-              >
-                确定
-              </span>
-            )}
+            <span
+              className=" text-sm text-center inline-block flex-1 text-fg"
+              onClick={onCancelClick}
+              data-testid="cancel-dialog"
+            >
+              取消
+            </span>
+
+            <span
+              className="confirm text-secondary text-sm text-center inline-block flex-1"
+              onClick={onConfirmClick}
+              data-testid="confirm-dialog"
+            >
+              确定
+            </span>
           </div>
         </div>
       </ModalMask>

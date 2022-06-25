@@ -2,7 +2,6 @@ module.exports = {
   apps: [
     {
       script: "./public/server.app.js",
-      args: "one two",
       instances: 2,
       autorestart: true,
       watch: false,

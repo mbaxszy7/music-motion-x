@@ -11,6 +11,7 @@ export const ModalMask: FC<{
     <div
       className=" z-[9999999] fixed top-0 left-0 bottom-0 right-0 bg-mask bg-opacity-40"
       onClick={onClick || fake}
+      data-testid="modal-mask"
     >
       {children}
     </div>
@@ -35,7 +36,7 @@ const InnerModal: FC<{ isDynamic: boolean; children?: ReactNode }> = ({
   const modalCleanup = () => {
     document.querySelector("html, body")!.classList.remove("no_scroll")
     try {
-      modalRoot.current?.removeChild(el.current)
+      modalRoot.current!.removeChild(el.current)
     } catch (e) {
       console.error(e)
     }
