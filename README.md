@@ -24,7 +24,7 @@
 
 ## React 同构 SSR 实现
 
-React 同构应用，就是同一套 React 代码在服务器上运行一遍，到达浏览器又运行一遍。 React 在服务端渲染（使用 ReactDOMServer.renderToPipeableStream 或者 ReactDOMServe.renderToNodeStream）产出 HTML，客户端渲注(ReactDOM.hydrate)绑定事件使页面可交互。
+React 同构应用，就是同一套 React 代码在服务器上运行一遍，到达浏览器又运行一遍。 React 在服务端渲染（使用 ReactDOMServer.renderToPipeableStream 或者 ReactDOMServe.renderToNodeStream）产出 HTML，客户端注水(ReactDOM.hydrate)绑定事件使页面可交互。
 
 ### React18 之前的 SSR 实现（上一个项目）
 
