@@ -31,9 +31,11 @@ React 同构应用，就是同一套 React 代码在服务器上运行一遍，�
 项目架构主要解决的问题如下：
 
 - 如何在服务端获取**当前页面**需要的数据，然后产出 html 给客户端？
+
   首先项目中每一个页面级的组件如果需要在服务端获取数据，都需要给当前组件挂载一个 getInitialProps(store)方法，该方法参数是一个 redux store 对象。然后我们利用 react-router-config 提供的 matchRoutes 方法，结合服务端的 request 请求路径 ctx.request.path，得到当前匹配的页面组件。之后执行当前页面组件的 getInitialProps 方法获取页面数据，把数据储存到 redux store 中，随后在组件中从 redux store 中获取数据，把数据注入 swr 的 initialData 中。最后利用 react-router-dom 的 StaticRouter 产出首屏 React App，利用 ReactDOMServer.renderToNodeStream 吐出 html 给浏览器。
 
 - redux Store 的 states 如何做到 server 端和 client 端同步？
+
   在上一个问题中，我们说到把页面数据都储存到了 redux store 中，那接下来如何同步给客户端？
   首先我们要准备如下的 html 模版：
 
@@ -65,6 +67,7 @@ React 同构应用，就是同一套 React 代码在服务器上运行一遍，�
   ```
 
 - 如何实现支持 SSR 的页面级 dynamic import
+
   项目自行实现了 Loadable 组件，用于动态加载组件：
 
   ```jsx
@@ -199,6 +202,7 @@ React 同构应用，就是同一套 React 代码在服务器上运行一遍，�
 ### React18 的 SSR 实现（本项目）
 
 - 如何在服务端获取当前页面需要的数据，然后产出 html 给客户端？
+
   我们利用 react-router v6 提供的 matchRoutes 方法，结合服务端的 request 请求路径 ctx.request.path，得到当前匹配的页面组件。
   在 React 18 中，当我们使用 Suspense 包裹一个组件的时候，可以使用一种叫 Render-as-you-fetch 数据请求方案（即取即渲染）,结合 React 18 SSR 提供的能力，在当前页面所有数据被获取之前，使用流式 HTML：
 
@@ -261,9 +265,11 @@ React 同构应用，就是同一套 React 代码在服务器上运行一遍，�
   ```
 
 - redux Store 的 states 如何同步？
+  
   同上一个项目的实现方式，只是 React Redux 8 的 Provider 多了一个 serverState
 
 - 如何实现支持 SSR 的页面级 dynamic import
+  
   React 18 中 React.lazy 可以实现 dynamic import，结合 Suspense，就是 React 原生级别的支持 SSR 的 dynamic import。
 
 从这三个问题中可以看出，依托 React 18 的 SSR Suspense 架构，结合 react-query，本项目的 SSR 架构实现比上一个简单明了
