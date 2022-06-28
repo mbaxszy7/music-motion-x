@@ -52,7 +52,7 @@ React 同构应用，就是同一套 React 代码在服务器上运行一遍，�
   </html>
   ```
 
-  占位<!--state-->就是需要我们在服务端把 html 放送给客户端前，用`store.getState()`替换的。如此这般在客户端 hydrate 的时候就可以把这段 state 取出来同步到客户端的 redux store：
+  占位`<!--state-->` 就是需要我们在服务端把 html 放送给客户端前，用`store.getState()`替换的。如此这般在客户端 hydrate 的时候就可以把这段 state 取出来同步到客户端的 redux store：
 
   ```javascript
   let payloadData = {}
