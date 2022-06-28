@@ -1,12 +1,11 @@
 module.exports = {
   collectCoverageFrom: [
-    "./src/components/*.{js,jsx,ts,tsx}",
+    "./src/components/**/*.{js,jsx,ts,tsx}",
     "./src/utils/*.{js,jsx,ts,tsx}",
-    "./src/pages/*.{js,jsx,ts,tsx}",
+    "./src/pages/**/*.{js,jsx,ts,tsx}",
     "./src/hooks/*.{js,jsx,ts,tsx}",
-    "./src/client/*.{js,jsx,ts,tsx}",
     "./src/server/*.{js,jsx,ts,tsx}",
-    // "!**/.next/**",
+    "!**/VScrollList.tsx",
     // "!**/public/**",
   ],
   moduleNameMapper: {
@@ -27,6 +26,8 @@ module.exports = {
     "@/interfaces/(.*)$": "<rootDir>/src/interfaces/$1",
     "@/hooks/(.*)$": "<rootDir>/src/hooks/$1",
     "@/components/(.*)$": "<rootDir>/src/components/$1",
+    "@/pages/(.*)$": "<rootDir>/src/pages/$1",
+    "@/utils/(.*)$": "<rootDir>/src/utils/$1",
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/", "test-utils"],
@@ -48,6 +49,7 @@ module.exports = {
     "/node_modules/",
     "^.+\\.module\\.(css|sass|scss)$",
   ],
+
   coverageThreshold: {
     global: {
       branches: 90,
@@ -57,5 +59,5 @@ module.exports = {
     },
   },
 
-  testEnvironment: "jsdom",
+  testEnvironment: "<rootDir>/__tests__/test-utils/custom-test-env.js",
 }

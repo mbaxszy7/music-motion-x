@@ -156,7 +156,7 @@ describe("SongMore", () => {
     )
     act(() => {
       fireEvent.click(screen.getByTestId("song-more"))
-      jest.runAllTimers()
+      jest.runOnlyPendingTimers()
     })
     await waitFor(() => {
       expect(screen.getByText("下一首播放")).toBeInTheDocument()
@@ -164,7 +164,7 @@ describe("SongMore", () => {
 
     act(() => {
       fireEvent.click(screen.getByText("歌手 cdf"))
-      jest.runAllTimers()
+      jest.runOnlyPendingTimers()
     })
   })
 
@@ -193,7 +193,7 @@ describe("SongMore", () => {
     })
     act(() => {
       fireEvent.click(screen.getByText("专辑 abc"))
-      jest.runAllTimers()
+      jest.runOnlyPendingTimers()
     })
   })
 })

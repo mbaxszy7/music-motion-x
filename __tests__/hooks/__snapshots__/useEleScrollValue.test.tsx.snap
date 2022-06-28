@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useEleScrollValue worked when page scroll 1`] = `
+<DocumentFragment>
+  <div
+    style="opacity: 1;"
+  >
+    test
+  </div>
+  <div
+    style="height: 800px;"
+  >
+    dedede
+  </div>
+</DocumentFragment>
+`;

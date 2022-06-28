@@ -17,10 +17,12 @@ const Banners = memo(() => {
   }, [])
 
   const { data } = useQuery("/api/banner?type=2", bannersfetch)
+
   return (
     <div
       className=" w-full relative overflow-hidden"
       style={{ padding: "39% 0 0" }}
+      data-testid="test-banners"
     >
       <div className=" absolute bottom-1 left-1/2 -translate-x-1/2 z-20 will-change-transform">
         {data?.map((_, idx) => (
@@ -36,14 +38,15 @@ const Banners = memo(() => {
           />
         ))}
       </div>
-      <MyBanner
-        banners={
-          data?.map((b) => (b.pic ? b.pic.replace(/https?/, "https") : "")) ??
-          []
-        }
-        onBannerChange={onBannerChange}
-        ref={myBannerref}
-      />
+      {!!data && data?.length > 0 && (
+        <MyBanner
+          banners={data.map((b) =>
+            b.pic ? b.pic.replace(/https?/, "https") : "",
+          )}
+          onBannerChange={onBannerChange}
+          ref={myBannerref}
+        />
+      )}
     </div>
   )
 })

@@ -6,11 +6,11 @@ export const bannersfetch = () =>
   fetcher
     .get<{ banners: Banner[] }>("/api/banner?type=2")
     .then((res) => res.data.banners)
-    .then((banners) =>
-      banners.map((banner) => ({
+    .then((banners) => {
+      return banners.map((banner) => ({
         pic: banner.pic,
-      })),
-    )
+      }))
+    })
 
 export const personalizedSongsFetch = () =>
   fetcher

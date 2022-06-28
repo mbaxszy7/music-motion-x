@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Banners render well with images 1`] = `
+<DocumentFragment>
+   
+  <div
+    class=" w-full relative overflow-hidden"
+    data-testid="test-banners"
+    style="padding: 39% 0px 0px;"
+  >
+    <div
+      class=" absolute bottom-1 left-1/2 -translate-x-1/2 z-20 will-change-transform"
+    >
+      <li
+        class=" mr-1 w-[6px] h-[6px] inline-block rounded-[50%] bg-secondary"
+      />
+      <li
+        class=" mr-1 w-[6px] h-[6px] inline-block rounded-[50%]  bg-white"
+      />
+      <li
+        class=" mr-1 w-[6px] h-[6px] inline-block rounded-[50%]  bg-white"
+      />
+    </div>
+    <div
+      class=" absolute w-full top-0 left-0 whitespace-nowrap touch-pan-x"
+    >
+      <div
+        class=" w-full inline-block transition-transform ease-in-out duration-700 scale-100 "
+      >
+        <img
+          alt=""
+          class=" w-full rounded-[10px]"
+          draggable="false"
+          src="https://image-one"
+        />
+      </div>
+      <div
+        class=" w-full inline-block transition-transform ease-in-out duration-700 scale-100 "
+      >
+        <img
+          alt=""
+          class=" bg-dg select-none  my_image  w-full rounded-[10px] pika-lazy"
+          data-settled="false"
+          data-src="https://image-two"
+          draggable="false"
+        />
+      </div>
+      <div
+        class=" w-full inline-block transition-transform ease-in-out duration-700 scale-100 "
+      >
+        <img
+          alt=""
+          class=" bg-dg select-none  my_image  w-full rounded-[10px] "
+          data-settled="false"
+          data-src=""
+          draggable="false"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Banners render well without images 1`] = `
+<DocumentFragment>
+   
+  <div
+    class=" w-full relative overflow-hidden"
+    data-testid="test-banners"
+    style="padding: 39% 0px 0px;"
+  >
+    <div
+      class=" absolute bottom-1 left-1/2 -translate-x-1/2 z-20 will-change-transform"
+    />
+  </div>
+</DocumentFragment>
+`;

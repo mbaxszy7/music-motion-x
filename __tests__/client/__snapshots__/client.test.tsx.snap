@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`client  render CSR well 1`] = `
+<DocumentFragment>
+  <audio
+    preload="metadata"
+    src=""
+  />
+  <div
+    class="fixed bg-black transition-all overflow-hidden duration-300 left-4 bottom-5 z-[1000] w-32 h-10 rounded-[500px]"
+    style="height: 40px;"
+  >
+    <div
+      class=" flex items-center justify-center"
+    >
+      <div>
+        <div
+          class="play"
+        />
+      </div>
+      <div
+        class=" text-dg font-bold text-lg h-full leading-10 ml-3"
+      >
+        00:00
+      </div>
+    </div>
+  </div>
+  <div
+    class=" w-16 h-16 z-[10000] relative my-0 mx-auto mb-0 "
+    style="margin-top: 30vh;"
+  >
+    <div
+      class="bounce w-full h-full rounded-full bg-secondary opacity-60 absolute top-0 left-0 animate-spin-loading"
+    />
+    <div
+      class="bounce  w-full h-full rounded-full bg-secondary opacity-60 absolute top-0 left-0 animate-spin-loading"
+      style="animation-delay: -1s;"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`client  render SSR well 1`] = `
+<DocumentFragment>
+  <audio
+    preload="metadata"
+    src=""
+  />
+  <div
+    class="fixed bg-black transition-all overflow-hidden duration-300 left-4 bottom-5 z-[1000] w-32 h-10 rounded-[500px]"
+    style="height: 40px;"
+  >
+    <div
+      class=" flex items-center justify-center"
+    >
+      <div>
+        <div
+          class="play"
+        />
+      </div>
+      <div
+        class=" text-dg font-bold text-lg h-full leading-10 ml-3"
+      >
+        00:00
+      </div>
+    </div>
+  </div>
+  <!--$-->
+  <main
+    class=" p-4 relative overflow-hidden bg-mg"
+  >
+    <div
+      class=" items-center bg-mg z-[99] block mt-5"
+      style="transition: all 0.3s ease-in-out;"
+    >
+      <input
+        class=" relative z-[1000] text-fg text-base border-none h-8 rounded-[200px] w-full bg- outline-none bg-black indent-8 transition-width duration-700 bg-[length:16px_16px] bg-no-repeat"
+        placeholder=""
+        style="background-image: url(test-file-stub);"
+        type="text"
+      />
+      <span
+        class=" ml-3 text-fg text-base whitespace-nowrap relative z-[1000]  invisible  w-0"
+        style="transition: width 0.6s;"
+      >
+        取消
+      </span>
+    </div>
+    <div
+      class="block"
+    />
+  </main>
+  <!--/$-->
+</DocumentFragment>
+`;
