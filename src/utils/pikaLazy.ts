@@ -11,11 +11,7 @@ const isLoaded = (element: HTMLImageElement) =>
 const pikaLazy: (options: { imgRef: HTMLImageElement }) => {
   lazyObserver: (imgRef: HTMLImageElement) => IntersectionObserver | null
 } = (options) => {
-  if (
-    "loading" in HTMLImageElement.prototype
-    // // iphone safari 加loading=‘lazy’ 会崩溃
-    // options.device?.ua?.broswer?.name === "Chrome"
-  ) {
+  if ("loading" in HTMLImageElement.prototype) {
     options.imgRef.loading = "lazy"
     return {
       lazyObserver: (imgRef: HTMLImageElement) => {
