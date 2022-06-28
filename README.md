@@ -216,7 +216,7 @@ React 同构应用，就是同一套 React 代码在服务器上运行一遍，�
   }
   ```
 
-  通过将 <Discover> 包装成 <Suspense>，我们告诉 React，它不需要等待 Discover 页面的数据准备好就可以开始为页面的其他部分传输 HTML。当服务器上的 Discover 页面数据准备好后，React 会将额外的 HTML 发送到同一个流中，然后替换 Suspense 中的 Spinner 占位。甚至在 React 本身加载到客户端之前，迟来的 Discover 页面的 HTML 就会完成渲染。
+  通过将 `<Discover>` 包装成 `<Suspense>`，我们告诉 React，它不需要等待 Discover 页面的数据准备好就可以开始为页面的其他部分传输 HTML。当服务器上的 Discover 页面数据准备好后，React 会将额外的 HTML 发送到同一个流中，然后替换 Suspense 中的 Spinner 占位。甚至在 React 本身加载到客户端之前，迟来的 Discover 页面的 HTML 就会完成渲染。
 
   为了利用 React 18 的这种 Suspense 数据请求方案，项目采用了 React-query 管理数据请求，开箱即用的完成了 Render-as-you-fetch 数据请求方案：
 
