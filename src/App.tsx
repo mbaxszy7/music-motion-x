@@ -10,19 +10,18 @@ import {
   DehydratedState,
   QueryClientProvider,
 } from "react-query"
-import { ReactQueryDevtools } from "react-query/devtools"
+// import { ReactQueryDevtools } from "react-query/devtools"
 import { HelmetProvider } from "react-helmet-async"
 import { BrowserRouter } from "react-router-dom"
 import { ErrorBoundary } from "react-error-boundary"
 import { Provider } from "react-redux"
 import { RouteMatch, Routes, Route } from "react-router"
-import ErrorFound from "@/components/ErrorPage"
-
 import routes from "./routes"
-import NotFound from "./pages/NotFound"
 
 const PlayBar = lazy(() => import("@/components/PlayBar"))
 const AppUpdateAvailable = lazy(() => import("@/components/AppUpdateAvailable"))
+const ErrorFound = lazy(() => import("@/components/ErrorPage"))
+const NotFound = lazy(() => import("./pages/NotFound"))
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,7 +68,14 @@ const App = ({
               ))}
           </Route>
         ))}
-        <Route path="*" element={<NotFound />} />
+        <Route
+          path="*"
+          element={
+            <Suspense>
+              <NotFound />
+            </Suspense>
+          }
+        />
       </Routes>
     </HelmetProvider>
   )
@@ -89,12 +95,14 @@ const App = ({
     <ErrorBoundary
       onReset={reset}
       fallbackRender={({ resetErrorBoundary, error }) => (
-        <ErrorFound resetErrorBoundary={resetErrorBoundary} error={error} />
+        <Suspense>
+          <ErrorFound resetErrorBoundary={resetErrorBoundary} error={error} />
+        </Suspense>
       )}
     >
       <Provider store={store} serverState={preloadedState || {}}>
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
+          {/* <ReactQueryDevtools initialIsOpen={false} /> */}
           <Hydrate state={dehydratedState}>{IsomophicRouter}</Hydrate>
         </QueryClientProvider>
       </Provider>
