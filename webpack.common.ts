@@ -27,10 +27,11 @@ const babelPresets = (env?: "node" | "legacy") => {
     {
       targets: { esmodules: true },
       useBuiltIns: "usage",
+      shippedProposals: true,
       modules: false,
       debug: false,
       bugfixes: true,
-      corejs: { version: 3, proposals: true },
+      corejs: { version: "3.21.1" },
     },
   ]
   if (env === "node") {
