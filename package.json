@@ -28,6 +28,18 @@
       "path": "git-cz"
     }
   },
+  "browserslist": {
+    "production": [
+      "> 0.25% and not dead"
+    ],
+    "modern": [
+      "last 1 chrome version",
+      "last 1 firefox version"
+    ],
+    "ssr": [
+      "node 14"
+    ]
+  },
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.8",

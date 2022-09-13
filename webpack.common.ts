@@ -25,7 +25,6 @@ const babelPresets = (env?: "node" | "legacy") => {
   const common: [string, any] = [
     "@babel/preset-env",
     {
-      targets: { esmodules: true },
       useBuiltIns: "usage",
       shippedProposals: true,
       modules: false,
