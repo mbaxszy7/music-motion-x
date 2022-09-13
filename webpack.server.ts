@@ -20,7 +20,9 @@ const config: webpack.Configuration = {
   target: "node",
   externalsPresets: { node: true },
   externals: [nodeExternals()],
-
+  experiments: {
+    topLevelAwait: true,
+  },
   entry: APP_PATH,
 
   output: {

@@ -78,7 +78,7 @@ const getReduxStore = (defaultState: { [x: string]: any }) => {
   return configureStore({
     reducer: rootReducer,
     middleware: [thunk],
-    devTools: true,
+    devTools: false,
     preloadedState: defaultState,
   })
 }

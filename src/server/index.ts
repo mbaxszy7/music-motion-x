@@ -186,6 +186,8 @@ app.on("error", (err) => {
   console.error("server error", err)
 })
 
-app.listen(5000, () => {
-  console.log("music-motion server is listening on 5000")
+const port = 5100
+
+app.listen(port, () => {
+  console.log(`music-motion server is listening on ${port}`)
 })

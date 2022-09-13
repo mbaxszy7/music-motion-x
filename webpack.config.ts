@@ -19,6 +19,7 @@ const config: webpack.Configuration = {
   entry: APP_PATH,
   devtool: isCSRDEV ? "source-map" : "cheap-module-source-map",
   experiments: {
+    topLevelAwait: true,
     outputModule: true,
   },
   output: {
