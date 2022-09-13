@@ -22,6 +22,8 @@ import NotFound from "./pages/NotFound"
 import PlayBar from "@/components/PlayBar"
 import AppUpdateAvailable from "@/components/AppUpdateAvailable"
 
+import { HelmetProvider } from "react-helmet-async"
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,6 +38,7 @@ const App = ({
   location,
   preloadedState,
   dehydratedState,
+  helmetContext,
 }: {
   store: any
   isServer: boolean
@@ -43,10 +46,11 @@ const App = ({
   location?: StaticRouterProps["location"]
   dehydratedState?: DehydratedState
   preloadedState: { [x: string]: any }
+  helmetContext: any
 }) => {
   const { reset } = useQueryErrorResetBoundary()
   const content = (
-    <>
+    <HelmetProvider context={helmetContext}>
       <Suspense>
         <PlayBar />
       </Suspense>
@@ -67,7 +71,7 @@ const App = ({
         ))}
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </>
+    </HelmetProvider>
   )
 
   const IsomophicRouter = isServer ? (

@@ -64,11 +64,17 @@ if (process.env.SSR === "true") {
       isServer={false}
       preloadedState={payloadData}
       dehydratedState={dehydratedState ?? undefined}
+      helmetContext={{}}
     />,
   )
 } else {
   const store = getReduxStore({})
   createRoot(document.getElementById("root")!).render(
-    <App store={store} isServer={false} preloadedState={{}} />,
+    <App
+      store={store}
+      isServer={false}
+      preloadedState={{}}
+      helmetContext={{}}
+    />,
   )
 }

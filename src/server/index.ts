@@ -2,9 +2,11 @@
 /* eslint-disable import/no-named-as-default */
 import { ReactNode } from "react"
 import Koa, { Context } from "koa"
+import { Writable } from "node:stream"
 import path from "path"
 import serve from "koa-static"
 import mount from "koa-mount"
+import { getStartTemplate, getEndTemplate } from "./getTemplate"
 
 import { renderToPipeableStream } from "react-dom/server"
 import fs from "fs"
@@ -110,8 +112,10 @@ app.use(mount("/public", serve("./public-client")))
 const response = (
   ctx: Context,
   markup: ReactNode,
-
   staticContext: { NOT_FOUND: boolean },
+  helmetContext: any,
+  state: any,
+  dehydratedState: any,
 ) => {
   return new Promise((resolve, reject) => {
     let didError = false
@@ -119,6 +123,16 @@ const response = (
       assetsJS.find((ass) => Object.keys(ass).includes("main.js"))?.[
         "main.js"
       ] ?? ""
+
+    const stream = new Writable({
+      write(chunk, _encoding, cb) {
+        ctx.res.write(chunk, cb)
+      },
+      final() {
+        ctx.res.end(getEndTemplate({ state, dehydratedState }))
+        resolve("ctx.resolve")
+      },
+    })
 
     const { pipe } = renderToPipeableStream(markup, {
       bootstrapScripts: [mainJs],
@@ -131,10 +145,9 @@ const response = (
           ctx.status = 404
         }
 
-        pipe(ctx.res).on("finish", () => {
-          ctx.res.end()
-          resolve("ctx.resolve")
-        })
+        ctx.res.write(getStartTemplate({ assetsJS, assetsCSS, helmetContext }))
+
+        pipe(stream)
       },
       onShellError() {
         // Something errored before we could complete the shell so we emit an alternative shell.
@@ -152,15 +165,18 @@ const response = (
 app.use(async (ctx) => {
   if (ctx.accepts(ctx.header.accept?.split(",") ?? []) === "text/html") {
     const staticContext: { NOT_FOUND: boolean } = { NOT_FOUND: false }
-    const { markup, queryClient } = await renderHTML(
-      ctx,
-      staticContext,
-      assetsCSS,
-      assetsJS,
-    )
+    const { markup, queryClient, helmetContext, state, dehydratedState } =
+      await renderHTML(ctx, staticContext)
 
     if (markup) {
-      await response(ctx, markup, staticContext)
+      await response(
+        ctx,
+        markup,
+        staticContext,
+        helmetContext,
+        state,
+        dehydratedState,
+      )
       queryClient.clear()
     }
   }
@@ -170,6 +186,6 @@ app.on("error", (err) => {
   console.error("server error", err)
 })
 
-app.listen(5000, () => {
-  console.log("music-motion server is listening on 5000")
+app.listen(5100, () => {
+  console.log("music-motion server is listening on 5100")
 })

@@ -5,7 +5,6 @@ import { matchRoutes, RouteMatch } from "react-router"
 import { dehydrate, QueryClient } from "react-query"
 import routes from "../routes"
 import getReduxStore from "../store"
-import Html from "./HTML"
 import App from "../App"
 
 const setInitialDataToStore = async (
@@ -33,8 +32,6 @@ const setInitialDataToStore = async (
 const renderHTML = async (
   ctx: Context,
   staticContext: { NOT_FOUND: boolean },
-  assetsCSS: { [x: string]: string }[],
-  assetsJS: { [x: string]: string }[],
 ) => {
   let markup: null | ReactNode = null
 
@@ -42,25 +39,19 @@ const renderHTML = async (
 
   const { store, queryClient } = await setInitialDataToStore(matchedRoutes, ctx)
   const dehydratedState = dehydrate(queryClient)
-  console.log("matchedRoutes", matchedRoutes)
   if (!matchedRoutes) staticContext.NOT_FOUND = true
+  const helmetContext = {}
+
   try {
     markup = (
-      <Html
-        assetsCSS={assetsCSS}
-        assetsJS={assetsJS}
-        title="music-motion"
-        states={store.getState()}
+      <App
+        store={store}
+        isServer
+        location={ctx.request.path}
         dehydratedState={dehydratedState}
-      >
-        <App
-          store={store}
-          isServer
-          location={ctx.request.path}
-          dehydratedState={dehydratedState}
-          preloadedState={store.getState()}
-        />
-      </Html>
+        preloadedState={store.getState()}
+        helmetContext={helmetContext}
+      />
     )
   } catch (error) {
     console.log("renderHTML 70,", error)
@@ -69,6 +60,8 @@ const renderHTML = async (
   return {
     markup,
     queryClient,
+    helmetContext,
+    dehydratedState,
     state: store.getState(),
   }
 }
