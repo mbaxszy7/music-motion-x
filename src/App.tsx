@@ -1,7 +1,7 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/forbid-prop-types */
 
-import React, { Suspense } from "react"
+import React, { lazy, Suspense } from "react"
 import { StaticRouter, StaticRouterProps } from "react-router-dom/server"
 import {
   QueryClient,
@@ -11,6 +11,7 @@ import {
   QueryClientProvider,
 } from "react-query"
 import { ReactQueryDevtools } from "react-query/devtools"
+import { HelmetProvider } from "react-helmet-async"
 import { BrowserRouter } from "react-router-dom"
 import { ErrorBoundary } from "react-error-boundary"
 import { Provider } from "react-redux"
@@ -19,10 +20,9 @@ import ErrorFound from "@/components/ErrorPage"
 
 import routes from "./routes"
 import NotFound from "./pages/NotFound"
-import PlayBar from "@/components/PlayBar"
-import AppUpdateAvailable from "@/components/AppUpdateAvailable"
 
-import { HelmetProvider } from "react-helmet-async"
+const PlayBar = lazy(() => import("@/components/PlayBar"))
+const AppUpdateAvailable = lazy(() => import("@/components/AppUpdateAvailable"))
 
 const queryClient = new QueryClient({
   defaultOptions: {
