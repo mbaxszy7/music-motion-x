@@ -1,6 +1,6 @@
 {
   "name": "music-motion-x",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "type-check": "tsc --noEmit",
     "dev:client": "SSR=true NODE_ENV=development TS_NODE_PROJECT=\"tsconfig-for-webpack-config.json\" webpack --mode=development --watch --profile --json=compilation-stats.json",
