@@ -81,7 +81,7 @@ const config: webpack.Configuration = {
     ],
   },
 
-  plugins: webpackpPlugins,
+  plugins: [...webpackpPlugins],
 }
 
 export default config

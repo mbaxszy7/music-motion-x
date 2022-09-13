@@ -2,26 +2,31 @@
 /* eslint-disable react/forbid-prop-types */
 
 import React, { lazy, Suspense } from "react"
-import { StaticRouter, StaticRouterProps } from "react-router-dom/server"
-import {
-  QueryClient,
-  useQueryErrorResetBoundary,
-  Hydrate,
-  DehydratedState,
-  QueryClientProvider,
-} from "react-query"
-// import { ReactQueryDevtools } from "react-query/devtools"
-import { HelmetProvider } from "react-helmet-async"
-import { BrowserRouter } from "react-router-dom"
-import { ErrorBoundary } from "react-error-boundary"
-import { Provider } from "react-redux"
-import { RouteMatch, Routes, Route } from "react-router"
-import routes from "./routes"
+
+import type { RouteMatch } from "react-router"
+import type { DehydratedState } from "react-query"
+import type { StaticRouterProps } from "react-router-dom/server"
 
 const PlayBar = lazy(() => import("@/components/PlayBar"))
 const AppUpdateAvailable = lazy(() => import("@/components/AppUpdateAvailable"))
 const ErrorFound = lazy(() => import("@/components/ErrorPage"))
 const NotFound = lazy(() => import("./pages/NotFound"))
+
+const {
+  QueryClient,
+  useQueryErrorResetBoundary,
+  Hydrate,
+  QueryClientProvider,
+} = await import("react-query")
+
+const { ErrorBoundary } = await import("react-error-boundary")
+const { HelmetProvider } = await import("react-helmet-async")
+const { StaticRouter } = await import("react-router-dom/server")
+const { Routes, Route } = await import("react-router")
+const { BrowserRouter } = await import("react-router-dom")
+const { Provider } = await import("react-redux")
+
+const routes = await import("./routes").then((res) => res.default)
 
 const queryClient = new QueryClient({
   defaultOptions: {
