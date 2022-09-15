@@ -10,16 +10,16 @@ const isLoaded = (element: HTMLImageElement) =>
 
 const pikaLazy: (options: { imgRef: HTMLImageElement }) => {
   lazyObserver: (imgRef: HTMLImageElement) => IntersectionObserver | null
-} = () => {
-  // if ("loading" in HTMLImageElement.prototype) {
-  //   options.imgRef.loading = "lazy"
-  //   return {
-  //     lazyObserver: (imgRef: HTMLImageElement) => {
-  //       load(imgRef)
-  //       return null
-  //     },
-  //   }
-  // }
+} = (options) => {
+  if ("loading" in HTMLImageElement.prototype) {
+    options.imgRef.loading = "lazy"
+    return {
+      lazyObserver: (imgRef: HTMLImageElement) => {
+        load(imgRef)
+        return null
+      },
+    }
+  }
   let observer: IntersectionObserver
   if (typeof window !== "undefined" && window.IntersectionObserver) {
     observer = new IntersectionObserver(

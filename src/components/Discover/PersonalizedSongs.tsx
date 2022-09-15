@@ -21,11 +21,19 @@ const PersonalizedSongs = memo(() => {
       <div
         className={`${css.left_images} text-[0px] h-full relative min-w-[135px]`}
       >
-        {threePersonalizedSongs?.map((_pic, index) =>
+        {threePersonalizedSongs?.map((pic, index) =>
           index === 2 ? (
-            <MyImage key={index} url={""} className={css.center_image} />
+            <MyImage
+              key={index}
+              url={pic ? `${pic}?param=67y67` : ""}
+              className={css.center_image}
+            />
           ) : (
-            <MyImage key={index} url={""} className="" />
+            <MyImage
+              key={index}
+              url={pic ? `${pic}?param=76y76` : ""}
+              className=""
+            />
           ),
         )}
       </div>
