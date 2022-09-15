@@ -79,7 +79,7 @@ const BigPlayItem: FC<{
             />
           ) : (
             <img
-              src={url ? url.replace(/https?/, "https") : ""}
+              src={""}
               className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
             />
           )}
@@ -161,7 +161,7 @@ const SongItem: FC<{
               />
             ) : (
               <img
-                src={imgUrl ? imgUrl.replace(/https?/, "https") : ""}
+                src={""}
                 className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
               />
             )}
@@ -259,7 +259,7 @@ const SmallMVItem: FC<
             />
           ) : (
             <img
-              src={imgUrl ? imgUrl.replace(/https?/, "https") : ""}
+              src={""}
               className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
             />
           )}
@@ -316,7 +316,7 @@ export const ArtistItem: FC<Partial<BestMatchArtistProp>> = ({
             />
           ) : (
             <img
-              src={imgUrl ? imgUrl.replace(/https?/, "https") : ""}
+              src={""}
               className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
             />
           )}
@@ -349,7 +349,7 @@ export const PlayListItem: FC<SearchPlayList & { lazyLoading: boolean }> = ({
             />
           ) : (
             <img
-              src={imgUrl ? imgUrl.replace(/https?/, "https") : ""}
+              src={""}
               className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
             />
           )}
@@ -384,7 +384,7 @@ export const AlbumItem: FC<NormalAlbum & { lazyLoading: true }> = ({
             />
           ) : (
             <img
-              src={imgUrl ? imgUrl.replace(/https?/, "https") : ""}
+              src={""}
               className=" w-full h-full absolute top-0 left-0 rounded-[4px]"
             />
           )}
