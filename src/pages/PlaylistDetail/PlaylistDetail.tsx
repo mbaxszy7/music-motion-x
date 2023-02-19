@@ -17,6 +17,7 @@ import InnerModal from "@/components/InnerModal"
 import useEffectShowModal from "@/hooks/useEffectShowModal"
 import { useDispatch } from "react-redux"
 import { rootSlice } from "@/store"
+import { Helmet } from "react-helmet-async"
 
 const PlaylistBrief: FC<Omit<PlaylistDetails, "coverImgUrl" | "trackIds">> = ({
   name,
@@ -185,50 +186,60 @@ const PlaylistDetailLazy = () => {
   useRootScrollTop()
 
   return (
-    <div className=" pt-8 px-4 pb-10">
-      <div
-        className=" fixed pt-6 px-4 pb-4 top-0 left-0 w-full z-[501] bg-mg"
-        style={{ opacity: headerOpacity }}
-      >
-        <PageBack
-          isBlack={false}
-          title={playlistDetails?.name ?? ""}
-          style={{ padding: 0 }}
-        />
-      </div>
-      <div className=" mt-12 sticky z-0 top-4 flex justify-center">
-        <MyImage
-          url={playlistDetails?.coverImgUrl || ""}
-          className=" w-[180px] h-[180px] rounded"
-        />
-      </div>
-
-      <div
-        className=" sticky py-8 bg-mg z-[5] overflow-hidden"
-        ref={scrollContainerRef}
-      >
-        <PlaylistBrief
-          name={playlistDetails?.name ?? ""}
-          description={playlistDetails?.description ?? ""}
-          subscribedCount={playlistDetails?.subscribedCount ?? ""}
-          playCount={playlistDetails?.playCount ?? 0}
-          tags={playlistDetails?.tags ?? []}
-        />
-
-        <div className=" mt-8">
-          <PlaySongsBar
-            songsCount={playlistSongs?.length ?? 0}
-            withoutBar={false}
-            onPlayIconClick={() => {
-              dispatch(rootSlice.actions.playSongs(playlistSongs ?? []))
-            }}
+    <>
+      {playlistDetails?.name && (
+        <Helmet>
+          <title>Music-Motion | {playlistDetails?.name}</title>
+        </Helmet>
+      )}
+      <div className=" pt-8 px-4 pb-10">
+        <div
+          className=" fixed pt-6 px-4 pb-4 top-0 left-0 w-full z-[501] bg-mg"
+          style={{ opacity: headerOpacity }}
+        >
+          <PageBack
+            isBlack={false}
+            title={playlistDetails?.name ?? ""}
+            style={{ padding: 0 }}
           />
-          <div className=" mt-6 pl-1">
-            <SongList list={playlistSongs ?? undefined} placeHolderCount={8} />
+        </div>
+        <div className=" mt-12 sticky z-0 top-4 flex justify-center">
+          <MyImage
+            url={playlistDetails?.coverImgUrl || ""}
+            className=" w-[180px] h-[180px] rounded"
+          />
+        </div>
+
+        <div
+          className=" sticky py-8 bg-mg z-[5] overflow-hidden"
+          ref={scrollContainerRef}
+        >
+          <PlaylistBrief
+            name={playlistDetails?.name ?? ""}
+            description={playlistDetails?.description ?? ""}
+            subscribedCount={playlistDetails?.subscribedCount ?? ""}
+            playCount={playlistDetails?.playCount ?? 0}
+            tags={playlistDetails?.tags ?? []}
+          />
+
+          <div className=" mt-8">
+            <PlaySongsBar
+              songsCount={playlistSongs?.length ?? 0}
+              withoutBar={false}
+              onPlayIconClick={() => {
+                dispatch(rootSlice.actions.playSongs(playlistSongs ?? []))
+              }}
+            />
+            <div className=" mt-6 pl-1">
+              <SongList
+                list={playlistSongs ?? undefined}
+                placeHolderCount={8}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
